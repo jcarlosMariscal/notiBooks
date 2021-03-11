@@ -1,0 +1,195 @@
+:root{
+    --letters: Arial, Helvetica, sans-serif;
+    --letters-color:white;
+    --header-footer: #546E7A;
+    --body-color: #e1e5eb;
+    --main-botton: black;
+    --aside-border: rgba(84,110,122,0.5);
+    --aside-border-shadow: #D7DBDD;
+
+    --a: #71BBDF;
+    --a-hover: #18A0E3;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.mainBook{
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: var(--letters-color);
+    font-family: var(--letters);
+    padding: 10px;
+    border-radius: 15px;
+    height: 700px;
+}
+
+.sectionBook{
+    margin: 5px;
+    margin-bottom: 20px;
+    width: 70%;
+    float: left;
+}
+.autorBook{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--aside-border);
+    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    width: 24.6%;
+    float: left;
+    height: 650px;
+}
+.mainBook .sectionBook img{
+    float: left;
+    padding: 10px;
+    width: 40%;
+    height: 200px;
+}
+.mainBook .sectionBook h2{
+    padding: 5px;
+}
+.mainBook .sectionBook h4{
+    padding: 5px;
+}
+.mainBook .sectionBook p{
+    padding: 5px;
+    text-align: justify;
+}
+.mainBook .autorBook .books .book p{
+    padding: 3px;
+}
+.mainBook .autorBook .books .book img{
+    float: left;
+    padding: 3px;
+    padding-right: 5px;
+    height: 100px;
+}
+
+/*NOTICIA*/
+.mainNoticia{
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: var(--letters-color);
+    font-family: var(--letters);
+    padding: 10px;
+    border-radius: 15px;
+    height: 716px;
+}
+.sectionNoticia{
+    margin: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.noti{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--aside-border);
+    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    /* width: 24.6%; */
+    /* float: left; */
+    height: 200px;
+    width: 95.5%;
+}
+.not{
+    float: left;
+    width: 33%;
+    /* border:apx solid red;
+    width: 32%;
+    margin-bottom: 5px; */
+}
+.title{
+    text-align: center;
+}
+.mainNoticia .sectionNoticia img{
+    float: left;
+    padding: 10px;
+    width: 35%;
+}
+/* .mainNoticia .sectionNoticia h2{
+    padding: 5px;
+} */
+/* .mainNoticia .sectionNoticia h4{
+    padding: 5px;
+} */
+.mainNoticia .sectionNoticia p{
+    padding: 5px;
+    text-align: justify;
+    width: 97%;
+}
+/* .mainNoticia .noti .notis .not p{
+    padding: 3px;
+} */
+.mainNoticia .noti .notis .not img{
+    float: left;
+    padding: 5px;
+    /* margin-top: 5px; */
+    /* margin-right: 5px; */
+    width: 25%;
+    height: 80px;
+}
+.clear{
+    clear: both;
+}
+/*NOTICIA*/
+
+/*LIBRO*/
+.bookMain{
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: var(--letters-color);
+    font-family: var(--letters);
+    padding: 10px;
+    border-radius: 15px;
+    height: 752px;
+}
+
+.bookSection{
+    margin: 5px;
+    margin-bottom: 20px;
+    width: 70%;
+    float: left;
+}
+.bookMain .bookSection article img{
+    width: 18%;
+    float: left;
+    padding-right: 10px;
+}
+.bookMain .bookSection article{
+    padding: 5px;
+}
+.bookMain .bookSection article p{
+    text-align: justify;
+    padding: 5px;
+}
+.bookGener{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--aside-border);
+    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    width: 24.6%;
+    float: left;
+    height: 475px;
+}
+.mainBook .bookGener .books .book p{
+    padding: 3px;
+}
+.bookMain .bookGener .books .book img{
+    float: left;
+    padding: 2px;
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 20%;
+}
+
+.bookMain .noti .notis .not img{
+    float: left;
+    padding: 5px;
+    /* margin-top: 5px; */
+    /* margin-right: 5px; */
+    width: 25%;
+    height: 80px;
+}
+/*LIBRO*/
