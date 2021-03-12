@@ -88,5 +88,37 @@ class agregar{
             return $query;
         }
     }
+    function addLibro($ISBN,$titulo,$portada,$prologo,$fecha_publi,$link,$id_editorial){
+        $sql = "INSERT INTO libro(ISBN,titulo,portada,prologo,fecha_publi,link,id_editorial) VALUES (?,?,?,?,?,?,?)";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        $query -> bindParam(2,$titulo);
+        $query -> bindParam(3,$portada);
+        $query -> bindParam(4,$prologo);
+        $query -> bindParam(5,$fecha_publi);
+        $query -> bindParam(6,$link);
+        $query -> bindParam(7,$id_editorial);
+        if($query->execute()){
+            return true;
+        }
+    }
+    function addLibroGenero($ISBN,$id_genero){
+        $sql = "INSERT INTO libro_genero(ISBN,id_genero) VALUES (?,?)";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        $query -> bindParam(2,$id_genero);
+        if($query->execute()){
+            return true;
+        }
+    }
+    function addLibroAutor($ISBN,$id_autor){
+        $sql = "INSERT INTO autor_libro(ISBN,id_autor) VALUES (?,?)";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        $query -> bindParam(2,$id_autor);
+        if($query->execute()){
+            return true;
+        }
+    }
 }
 ?>

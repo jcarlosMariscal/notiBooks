@@ -17,7 +17,7 @@
     <div class="formAgregarCat">
         <form id="formAddGenLibro" enctype="multipart/form-data">
             <h3>Agregar genero Para el libro <?php echo $_GET['ISBN']; ?></h3>
-            <input type="text" name="tabla" value="genero" hidden>
+            <input type="text" name="tabla" value="libroGenero" hidden>
             <input type="text" name="ISBN" value="<?php echo $_GET['ISBN']; ?>" hidden>
             <label for="genero">Seleccione genero: </label>
             <select name="genero" id="genero">

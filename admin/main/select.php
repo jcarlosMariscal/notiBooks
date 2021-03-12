@@ -90,5 +90,23 @@ class select{
             return $query;
         }
     }
+    function getGeneroID($ISBN){
+        $sql = "SELECT GROUP_CONCAT(C.nombre SEPARATOR ', ') as nombre FROM libro A INNER JOIN libro_genero B ON A.ISBN = B.ISBN INNER JOIN genero C ON B.id_genero = C.id_genero WHERE A.ISBN = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        if($query->execute()){
+            return $query;
+        }
+        
+    }
+
+    function getAutorID($ISBN){
+        $sql = "SELECT GROUP_CONCAT(C.nombre SEPARATOR ', ') as nombre FROM libro A INNER JOIN autor_libro B ON A.ISBN = B.ISBN INNER JOIN autor C ON B.id_autor = C.id_autor WHERE A.ISBN = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        if($query->execute()){
+            return $query;
+        }
+    }
 }
 ?>

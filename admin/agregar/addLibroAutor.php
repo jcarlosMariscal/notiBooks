@@ -17,7 +17,7 @@
     <div class="formAgregarCat">
         <form id="formAddAutorLibro" enctype="multipart/form-data">
             <h3>Agregar autor Para el libro <?php echo $_GET['ISBN']; ?></h3>
-            <input type="text" name="tabla" value="genero" hidden>
+            <input type="text" name="tabla" value="autorLibro" hidden>
             <input type="text" name="ISBN" value="<?php echo $_GET['ISBN']; ?>" hidden>
             <label for="">Seleccione autor: </label>
             <select name="autor" id="autor">

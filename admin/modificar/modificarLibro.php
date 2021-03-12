@@ -3,6 +3,9 @@
     if (!isset($_SESSION["nombre"])){
         header("Location: ../admin.php");
     }
+    $id = $_GET['ISBN'];
+    require "update.php";
+    $query = new update();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,26 +19,37 @@
 </head>
 <body>
     <div class="formAgregar">
-        <form id="formAddLibro" enctype="multipart/form-data">
-            <h3>Agregar nuevo Libro</h3>
+        <form id="formModLibro" enctype="multipart/form-data">
+        <?php
+        $libro = $query -> getLibro($id);
+        if($libro){
+            foreach($libro as $data){
+                $ISBN = $data['ISBN'];
+                $titulo = $data['titulo'];
+                $prologo = $data['prologo'];
+                $fecha_publi = $data['fecha_publi'];
+                $link = $data['link'];
+                $id_editorial = $data['id_editorial'];
+            }
+        }
+        ?>
+            <h3>Modificar Libro <?php echo $id; ?> <i>Si no desea cambiar la portada, por favor, omitalo.</i></h3>
             <input type="text" name="tabla" value="libro" hidden>
             <label for="">ISBN: </label>
-            <input type="text" name="ISBN" placeholder="Introduce el ISBN del libro" class="above">
+            <input type="text" name="ISBN" value="<?php echo $ISBN; ?>" class="above">
 
             <label for="">Titulo: </label>
-            <input type="text" name="titulo" placeholder="Introduce el titulo" class="above">
+            <input type="text" name="titulo" value="<?php echo $titulo; ?>" class="above">
 
             <label for="">F.Publicacion: </label>
-            <input type="date" name="fecha_publi" class="fech">
+            <input type="date" name="fecha_publi" value="<?php echo $fecha_publi; ?>" class="fech">
 
             <input type="file" class="file" id="portada">
 
             <label for="categoria">Editorial: </label>
             <select name="editorial" id="editorial" class="categoria">
                 <?php
-                require "agregar.php";
-                $query = new agregar();
-                $categoria = $query->getEditorial();
+                $categoria = $query->getEdit();
                 if($categoria){
                     foreach($categoria as $data){
                         ?>
@@ -46,16 +60,16 @@
                 ?>  
             </select>
             <label for="">URL: </label>
-            <input type="text" name="url" class="url" placeholder="URL al libro">
+            <input type="text" name="url" class="url" value="<?php echo $link; ?>">
             <label for="">Cuerpo:</label><br>
             <input name="prologo" id="prologo" type="hidden">
-            <div id="editor" ></div>
+            <div id="editor" ><?php echo $prologo; ?></div>
             <div class="btn-right">
                 <button type="submit" class="btn-e addNot">Guardar</button>
             </div>
         </form>
     </div>
     <script src="../../quill/quill.js"></script>
-    <script src="../../js/agregar.js"></script>
+    <script src="../../js/modificar.js"></script>
 </body>
 </html>

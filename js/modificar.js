@@ -24,6 +24,8 @@ var formModAcceso = document.getElementById("formModAcceso");
 var formModAutor = document.getElementById("formModAutor");
 var formModEdi = document.getElementById("formModEdi");
 var formModGen = document.getElementById("formModGen");
+var formModLibro = document.getElementById("formModLibro");
+
 if(formModificar){
     var quill = new Quill('#editor', {
         modules:{
@@ -131,5 +133,31 @@ else if(formModEdi){
         });
         alert("Genero Modificado");
         window.location.href="../main.php?id=4";
+    });
+}else if(formModLibro){
+    var quill = new Quill('#editor', {
+        modules:{
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+    
+    const inputFile = document.querySelector('#portada');
+    formModLibro.addEventListener('submit',(e) => {
+            e.preventDefault();
+            document.getElementById("prologo").value = quill.container.firstChild.innerHTML;
+    
+            let noticia = new FormData(formModLibro);
+            noticia.append("archivo", inputFile.files[0]);
+    
+            fetch("../modificar/datosRecibidos.php",{
+                method : "POST",
+                body : noticia
+            }).then( (res) => res.text()).then( (res) => {
+                console.log(res);
+            });
+            alert("Libro Modificado");
+            window.location.href="../main.php?id=3";
+    
     });
 }

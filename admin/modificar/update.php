@@ -168,5 +168,50 @@ class update{
             return true;
         }
     }
+    function getEdit(){
+        $sql = "SELECT * FROM editorial";
+        $query = $this->cnx->prepare($sql);
+        if($query->execute()){
+            return $query;
+        }
+    }
+    function getLibro($ISBN){
+        $sql = "SELECT * FROM libro WHERE ISBN = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        if($query->execute()){
+            return $query;
+        }
+    }
+
+    function updateLibroImage($ISBN,$titulo,$prologo,$fecha_publi,$link,$id_editorial,$portada){
+        $sql = "UPDATE libro SET ISBN = ?, titulo = ?, portada = ?, prologo = ?, fecha_publi = ?, link = ?, id_editorial = ? WHERE ISBN = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        $query -> bindParam(2,$titulo);
+        $query -> bindParam(3,$portada);
+        $query -> bindParam(4,$prologo);
+        $query -> bindParam(5,$fecha_publi);
+        $query -> bindParam(6,$link);
+        $query -> bindParam(7,$id_editorial);
+        $query -> bindParam(8,$ISBN);
+        if($query->execute()){
+            return true;
+        }
+    }
+    function updateLibro($ISBN,$titulo,$prologo,$fecha_publi,$link,$id_editorial){
+        $sql = "UPDATE libro SET ISBN = ?, titulo = ?, prologo = ?, fecha_publi = ?, link = ?, id_editorial = ? WHERE ISBN = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$ISBN);
+        $query -> bindParam(2,$titulo);
+        $query -> bindParam(3,$prologo);
+        $query -> bindParam(4,$fecha_publi);
+        $query -> bindParam(5,$link);
+        $query -> bindParam(6,$id_editorial);
+        $query -> bindParam(7,$ISBN);
+        if($query->execute()){
+            return true;
+        }
+    }
 }
 ?>

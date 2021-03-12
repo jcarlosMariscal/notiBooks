@@ -478,3 +478,15 @@ ul, ol {
     top:0px;
 }
 /*Menu periodista*/
+
+.addG{
+    background: red;
+    font-size: 16px;
+    color: var(--letters-color);
+    padding: 0px 10px 1px 10px;
+    border-radius: 5px;
+}
+.addG:hover{
+    background: var(--letters-color);
+    color: var(--main-botton);
+}

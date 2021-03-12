@@ -144,25 +144,17 @@ if(formAdd){
             let autor = new FormData(formAddLibro);
             autor.append("archivo", inputFile.files[0]);
             var ISBN = autor.get("ISBN");
-            console.log(autor.get("ISBN"));
-            console.log(autor.get("titulo"));
-            console.log(autor.get("fecha_publi"));
-            console.log(autor.get("portada"));
-            console.log(autor.get("categoria"));
-            console.log(autor.get("url"));
-            console.log(autor.get("prologo"));
-            // fetch('../agregar/datosRecibidos.php',{
-            //     method: 'POST',
-            //     body: autor
-            // }).then( (res) => res.text()).then( (data) => {
-            //     console.log(data);
-            // });
+            fetch('../agregar/datosRecibidos.php',{
+                method: 'POST',
+                body: autor
+            }).then( (res) => res.text()).then( (data) => {
+                // console.log(data);
+                window.location='addLibroGenero.php?ISBN='+ISBN; 
+            });
 
-            window.location='addLibroGenero.php?ISBN='+ISBN; 
         }else{
             alert("Selecciona un archivo");
         }
-        console.log("Accediendo");
     });
 }else if(formAddGenLibro){
     formAddGenLibro.addEventListener('submit', (e) =>{
@@ -170,29 +162,36 @@ if(formAdd){
 
         let genLibro = new FormData(formAddGenLibro);
         var ISBN = genLibro.get("ISBN");
-        console.log(ISBN);
-        console.log(genLibro.get("genero"));
-        var add = confirm("Agregar otro genero?");
-        if(add){
-            window.location='addLibroGenero.php?ISBN='+ISBN; 
-        }else{
-            window.location='addLibroAutor.php?ISBN='+ISBN;
-        }
+        fetch('../agregar/datosRecibidos.php',{
+            method: 'POST',
+            body: genLibro
+        }).then( (res) => res.text()).then( (data) => {
+            // console.log(data);
+            var add = confirm("Agregar otro genero?");
+            if(add){
+                window.location='addLibroGenero.php?ISBN='+ISBN; 
+            }else{
+                window.location='addLibroAutor.php?ISBN='+ISBN;
+            }
+        });
     });
 }else if(formAddAutorLibro){
     formAddAutorLibro.addEventListener('submit', (e) =>{
         e.preventDefault();
         let autorLibro = new FormData(formAddAutorLibro);
         var ISBN = autorLibro.get("ISBN");
-        console.log(ISBN);
-        console.log(autorLibro.get("autor"));
-        var add = confirm("Agregar otro Autor?");
-        if(add){
-            window.location='addLibroAutor.php?ISBN='+ISBN; 
-        }else{
-            window.location='../main.php?id=3';
-        }
-        console.log("Agregar genero");
+        fetch('../agregar/datosRecibidos.php',{
+            method: 'POST',
+            body: autorLibro
+        }).then( (res) => res.text()).then( (data) => {
+            // console.log(data);
+            var add = confirm("Agregar otro Autor?");
+            if(add){
+                window.location='addLibroAutor.php?ISBN='+ISBN; 
+            }else{
+                window.location='../main.php?id=3';
+            }
+        });
     });
 }
 

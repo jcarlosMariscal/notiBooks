@@ -11,72 +11,34 @@
                     <th>Título</th>
                     <th>Autor(s)</th>
                 </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td> La increíble y triste historia de la cándida Eréndira y su abuela desalmada</td>
-                    <td>Juan Carlos, Pedro</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>Algo supuestamente divertido que nunca volveré a hacer</td>
-                    <td>Gabriel Garcia Marquez, Pioquinto marquez juarez</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La sociedad literaria y el pastel de piel de patata de Guernsey</td>
-                    <td>Mariana mendoza juarez, Yadira Jeronimo Perez, Nancy Mical Yesenia</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td> Y los hipopótamos se cocieron en sus tanques</td>
-                    <td>Pedro</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>Guía del autoestopista galáctico</td>
-                    <td>Marcos</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>Maria</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>La vida</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>2021-02-24</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>2021-02-24</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>2021-02-24</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
-                <tr>
-                    <td>123-25-25-321</td>
-                    <td>La paloma Joseluisa</td>
-                    <td>2021-02-24</td>
-                    <td class="modify"><i class="fas fa-marker"></i></td>
-                </tr>
+                <?php
+                require "select.php";
+                $query = new select();
+                $autor = $query->getLibros();
+                if($autor){
+                    foreach($autor as $data){
+                        ?>
+                        <tr>
+                            <td><?php echo $data['ISBN']; ?></td>
+                            <td><?php echo $data['titulo']; ?></td>
+                            <?php
+                            $aut = $query->getAutorID($data['ISBN']);
+                            if($aut){
+                                foreach($aut as $dat){
+                                    if($dat['nombre'] == ""){
+                                        ?><td><a class="addG" href="agregar/addLibroAutor.php?ISBN=<?php echo $data['ISBN']; ?>">Agrega un autor</a></td><?php
+                                    }else{
+                                        ?><td><?php echo $dat['nombre']; ?></td><?php
+                                    }
+                                }
+                            }
+                            ?>
+                            <td class="modify"><i class="fas fa-marker"></i></td>
+                        </tr>
+                        <?php
+                    }    
+                }
+                ?>
             </table>
         </div>
     </div>

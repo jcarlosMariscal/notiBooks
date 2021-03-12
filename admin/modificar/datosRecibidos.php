@@ -64,6 +64,27 @@ if($tabla === "noticia"){
     $id_genero = $_POST['id_genero'];
     $nombre = $_POST['nombre'];
     $query -> updateGenero($id_genero,$nombre);
+}elseif($tabla == "libro"){
+    $ISBN = $_POST["ISBN"];
+    $titulo = $_POST["titulo"];
+    $prologo = $_POST["prologo"];
+    $fecha_publi = $_POST["fecha_publi"];
+    $link = $_POST["url"];
+    $id_editorial = $_POST["editorial"];
+    $img = ( empty ($_FILES['archivo'] ) ? NULL : $_FILES['archivo']);
+    if($img){
+        $archivo = $_FILES["archivo"];
+        $nombre_img = basename($archivo["name"]);
+        $nombre_mod = date("m-d-y").$nombre_img;
+        $ruta = "../../img/" . $nombre_mod;
+        $subirArchivo = move_uploaded_file($archivo["tmp_name"],$ruta);
+        if($subirArchivo){
+            $portada = "img/$nombre_mod";
+            $query -> updateLibroImage($ISBN,$titulo,$prologo,$fecha_publi,$link,$id_editorial,$portada);
+        }
+    }else{
+        $query -> updateLibro($ISBN,$titulo,$prologo,$fecha_publi,$link,$id_editorial);
+    }
 }else{
     echo "Algo salio mal";
 }

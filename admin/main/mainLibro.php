@@ -14,7 +14,7 @@
                     <th>Título</th>
                     <th>Publicación</th>
                     <th>Editorial</th>
-                    <th>Id_Genero</th>
+                    <th>Genero</th>
                 </tr>
                 <?php
                 require "select.php";
@@ -28,9 +28,24 @@
                             <td><?php echo $data['titulo']; ?></td>
                             <td><?php echo $data['fecha_publi'] ?></td>
                             <td><?php echo $data['nombre']; ?></td>
-                            <td>2</td>
-                            <td class="delete"><i class="far fa-trash-alt"></i></td>
-                            <td class="modify"><i class="fas fa-marker"></i></td>
+                            <?php
+                            $genero = $query->getGeneroID($data['ISBN']);
+                            if($genero){
+                                foreach($genero as $dat){
+                                    if($dat['nombre']==""){
+                                        ?>
+                                        <td><a class="addG" href="agregar/addLibroGenero.php?ISBN=<?php echo $data['ISBN']; ?>">Agrega un genero</a></td>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <td><?php echo $dat['nombre']; ?></td>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
+                            <td class="modify"><a href="modificar/modificarLibro.php?ISBN=<?php echo $data['ISBN']; ?>"><i class="fas fa-marker"></i></a></td>
+                            <td class="delete"><a href="eliminar/datoRecibido.php?ISBN=<?php echo $data['ISBN']; ?>"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         <?php
                     }
