@@ -19,7 +19,7 @@
                 <input type="password" name="password" id="password" placeholder="Ingrese su contraseña">
                 <div class="form-btn">
                     <button class="btn-e" type="submit">Iniciar Sesión</button>
-                    <a href="admin/login.php" class="btn-r">Crear nuevo</a>
+                    <!-- <a href="admin/login.php" class="btn-r">Crear nuevo</a> -->
                 </div>
             </form>
         </div>

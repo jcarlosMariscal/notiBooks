@@ -82,6 +82,8 @@
             }
             elseif($id == 7){
                 include "main/mainAcceso.php";
+            }elseif($id == 8){
+                include "main/mainLibro-genero.php";
             }
         }else{
             include "main/mainNoticia.php";

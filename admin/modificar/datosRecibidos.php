@@ -30,9 +30,6 @@ if($tabla === "noticia"){
     $id_acceso = $_POST['id_acceso'];
     $nombre = $_POST['name'];
     $id_rol = $_POST['rol'];
-    echo $id_acceso;
-    echo $nombre;
-    echo $id_rol;
     $query->updateAcceso($id_acceso,$nombre,$id_rol);
 }elseif($tabla == "autor"){
     $id_autor = $_POST['id_autor'];

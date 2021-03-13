@@ -75,9 +75,9 @@ if(formModificar){
             method: 'POST',
             body: acceso
         }).then( (res) => res.text()).then( (data) => {
-            console.log(data);
+            // console.log(data);
         });
-        alert("Acceso Modificado");
+        alert("Datos de usuario modificado");
         window.location.href="../main.php?id=7";
     });
 }else if(formModAutor){

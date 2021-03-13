@@ -14,15 +14,19 @@
                 $query = new selectMain();
                 $autor = $query->pageMainAutor(); 
                 if($autor){
-                    while($data = $autor->fetch()){
-                        $nombre = $data['nombre'];
-                        $obras = $data['obras'];
-                        $id = $data['id_autor'];
+                    // while($data = $autor->fetch()){
+                    //     $nombre = $data['nombre'];
+                    //     $obras = $data['obras'];
+                    //     $id = $data['id_autor'];
+                    // }
+                    foreach($autor as $data){
+                        ?>
+                        <h2><?php echo $data['nombre']; ?></h2>
+                        <p><?php echo $data['obras']; ?> <a class="a" href="index.php?autor=<?php  echo $data['id_autor']; ?>">Leer más...</a></p>
+                        <?php
                     }
                 }
             ?>
-            <h2><?php echo $nombre;?></h2>
-            <p><?php echo $obras; ?> <a class="a" href="index.php?autor=<?php echo $id ?>">Leer más...</a></p>
         </div>
         <section class="section">
             <div class="titleSection">
@@ -50,30 +54,6 @@
                     }
                 }
             ?>
-            <!-- <article class="noticiaMain">
-                <h4>Titulo de la noticia</h4>
-                <img src="img/book2.jpg" alt="">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticiaMain">
-                <h4>Titulo de la noticia</h4>
-                <img src="img/book3.jpg" alt="">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticiaMain">
-                <h4>Titulo de la noticia</h4>
-                <img src="img/book4.jpg" alt="">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article> -->
         </section>
         <aside >
             <div><h3>Libros escritos</h3></div>

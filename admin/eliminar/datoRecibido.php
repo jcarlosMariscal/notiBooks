@@ -19,5 +19,16 @@ if($_GET['id_noticia']){
 }elseif($_GET['genero']){
     $id = $_GET['genero'];
     $query -> eliminarGenero($id);
+}elseif($_POST['tabla']){
+    $ISBN = $_POST['ISBN'];
+    $id_autor = $_POST['autor'];
+    $query->eliminarAutLibro($ISBN,$id_autor);
+}elseif($_POST['tablaGen']){
+    $ISBN = $_POST['ISBN'];
+    $id_genero = $_POST['genero'];
+    $query->eliminarGenLibro($ISBN,$id_genero);
+}elseif($_GET['ISBN']){
+    $ISBN = $_GET['ISBN'];
+    $query->eliminarLibro($ISBN);
 }
 ?>

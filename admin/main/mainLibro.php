@@ -1,9 +1,10 @@
 <div class="main">
     <div class="sectionMain">
-        <h3>Libros</h3>
+        <label for="">Libros</label>
         <a href="agregar/addLibro.php" class="btn-noticia">Agregar Libro</a>
         <a href="../admin/main.php?id=4" class="btn-noticia">Ver más</a>
         <a href="../admin/main.php?id=5" class="btn-noticia">Ver Libro-Autor</a>
+        <a href="../admin/main.php?id=8" class="btn-noticia">Ver Libro-Genero</a>
     </div>
     <div class="select">
         <div class="resultLibro">

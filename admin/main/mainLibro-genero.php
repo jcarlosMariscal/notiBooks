@@ -1,8 +1,8 @@
 <div class="main">
     <div class="sectionMain">
-        <label for="">Libros por autor</label>
+    <label for="">Libros por genero</label>
         <a href="../admin/main.php?id=4" class="btn-noticia">Ver más</a>
-        <a href="../admin/main.php?id=8" class="btn-noticia">Ver Libro-Genero</a>
+        <a href="../admin/main.php?id=5" class="btn-noticia">Ver Libro-Autor</a>
     </div>
     <div class="select">
         <div class="resultLibro">
@@ -11,7 +11,7 @@
                 <tr>
                     <th>ISBN</th>
                     <th>Título</th>
-                    <th>Autor(s)</th>
+                    <th>Genero(s)</th>
                 </tr>
                 <?php
                 require "select.php";
@@ -24,7 +24,7 @@
                             <td><?php echo $data['ISBN']; ?></td>
                             <td><?php echo $data['titulo']; ?></td>
                             <?php
-                            $aut = $query->getAutorID($data['ISBN']);
+                            $aut = $query->getGeneroID($data['ISBN']);
                             if($aut){
                                 foreach($aut as $dat){
                                     if($dat['nombre'] == ""){
@@ -35,8 +35,8 @@
                                 }
                             }
                             ?>
-                            <td class="modify"><a href="agregar/addLibroAutor.php?ISBN=<?php echo $data['ISBN']; ?>"><i class="fas fa-plus"></i></a></td>
-                            <td class="delete"><a href="#" onclick="deleteAutBook(ISBN='<?php echo $data['ISBN']; ?>',autor='<?php echo $data['titulo']; ?>')"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="modify"><a href="agregar/addLibroGenero.php?ISBN=<?php echo $data['ISBN']; ?>"><i class="fas fa-plus"></i></a></td>
+                            <td class="delete"><a href="#" onclick="deleteGenBook(ISBN='<?php echo $data['ISBN']; ?>',autor='<?php echo $data['titulo']; ?>')"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         <form id="libroAutor" hidden></form>
                         <?php
