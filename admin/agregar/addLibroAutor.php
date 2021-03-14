@@ -37,6 +37,8 @@
 
             <div class="btn-right">
                 <button type="submit" class="btn-e addNot">Guardar</button>
+                <a href="addLibroGenero.php?ISBN=<?php echo $_GET['ISBN']; ?>" class="btn-x addNot">Agregar Genero</a>
+                <a href="../main.php?id=3" class="btn-y addNot">Terminar</a>
             </div>
         </form>
     </div>

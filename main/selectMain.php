@@ -6,25 +6,46 @@ include "config/conexion.php";
             $this->cnx = conexion::conectarDB();
         }
 
-        function max($id,$table){
-            $sql = "SELECT count($id) FROM $table";
+        function numberRandom($id,$table){
+            $sql = "SELECT id_$table as id FROM $table";
             $query = $this->cnx->prepare($sql);
             if($query->execute()){
+                $id = array();
+                $i=0;
                 while($datos = $query->fetch()){
-                    $max = $datos[0];
-                    return $max;
+                    $id_table = $datos['id'];
+                    $id[$i] = $id_table;
+                    $random = $id[array_rand($id)];
+                    $i++;
                 }
+                return $random;
             }
         }
 
-        function numberRandom($id,$table){
-            $max = $this->max($id,$table);
-            $random = (rand(1, $max));
-            return $random;
+        function limitTable($id,$table,$canti){
+            $sql = "SELECT $id as id FROM $table";
+            $query = $this->cnx->prepare($sql);
+            if($query->execute()){
+                $id = array(2,4,6,8,10,12);
+                $i=0;
+                while($datos = $query->fetch()){
+                    $id_table = $datos['id'];
+                    $i++;
+                }
+                $pos = count($id);
+                $t = $pos-1;
+                $posicion = array();
+                for($c=0;$c<$canti;$c++){
+                    $posicion[$c]=$id[$pos-($c+1)]; 
+                }
+                // print_r($posicion);
+                return $posicion;
+            }
         }
 
         function pageMainAutor(){
             $random = $this->numberRandom("id_autor","autor");
+            // echo $random;
             $sql = "SELECT id_autor,nombre,obras FROM autor WHERE id_autor = ?";
             $query = $this->cnx->prepare($sql);
             $query -> bindParam(1,$random);
@@ -34,8 +55,13 @@ include "config/conexion.php";
         }
 
         function pageMainNoticia(){
-            $max = $this->Max("id_noticia","noticia");
-            $limit = $max-3;
+            $max = $this->limitTable("id_noticia","noticia",4);
+            // echo "DESDE PAGE MAIN NOTICIA";
+
+            $p1 = $max[0];
+            $p2 = $max[1];
+            $p3 = $max[2];
+            $p4 = $max[3];
             $rol = "periodista";
             $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia > ? and C.rol = ? ORDER BY A.id_noticia DESC";
             $query = $this->cnx->prepare($sql);
@@ -47,8 +73,11 @@ include "config/conexion.php";
         }
 
         function pageMainLibros(){
-            $max = $this-> max("ISBN","libro");
-            $limit = $max-3;
+            $max = $this-> limitTable("ISBN","libro",4);
+            $p1 = $max[0];
+            $p2 = $max[1];
+            $p3 = $max[2];
+            $p4 = $max[3];
             $sql = "SELECT ISBN, portada,titulo FROM libro";
             $query = $this->cnx->prepare($sql);
             if($query->execute()){

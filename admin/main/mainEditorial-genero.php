@@ -24,7 +24,7 @@
                             <td><?php echo $data['id_editorial']; ?></td>
                             <td><?php echo $data['nombre']; ?></td>
                             <td class="modify"><a href="modificar/modificarEditorial.php?editorial=<?php echo $data['id_editorial']; ?>"><i class="fas fa-marker"></i></a></td>
-                            <td class="delete"><a href="eliminar/datoRecibido.php?editorial=<?php echo $data['id_editorial']; ?>"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="eliminarEditorial(id='<?php echo $data['id_editorial']; ?>',nombre='<?php echo $data['nombre']; ?>')"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         <?php
                     }
@@ -48,14 +48,16 @@
                             <td><?php echo $data['id_genero']; ?></td>
                             <td><?php echo $data['nombre']; ?></td>
                             <td class="modify"><a href="modificar/modificarGenero.php?genero=<?php echo $data['id_genero']; ?>"><i class="fas fa-marker"></i></a></td>
-                            <td class="delete"><a href="eliminar/datoRecibido.php?genero=<?php echo $data['id_genero']; ?>"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="eliminarGenero(id='<?php echo $data['id_genero']; ?>',nombre='<?php echo $data['nombre']; ?>')"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         <?php
                     }
                 }
                 ?>
             </table>
+            <form id="eliminarEditGen" hidden></form>
         </div>
 
     </div>
 </div>
+<script src="../js/eliminar.js"></script>

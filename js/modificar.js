@@ -75,10 +75,9 @@ if(formModificar){
             method: 'POST',
             body: acceso
         }).then( (res) => res.text()).then( (data) => {
-            // console.log(data);
+            alert('Datos modificados'); 
+            window.location.href='../main.php?id=7';
         });
-        alert("Datos de usuario modificado");
-        window.location.href="../main.php?id=7";
     });
 }else if(formModAutor){
     var quill = new Quill('#editor', {
@@ -100,10 +99,9 @@ if(formModificar){
             method : "POST",
             body : autor
         }).then( (res) => res.text()).then( (res) => {
-            console.log(res);
+            alert("Autor Modificado");
+            window.location.href="../main.php?id=6";
         });
-        alert("Autor Modificado");
-        window.location.href="../main.php?id=6";
     });
 }
 else if(formModEdi){
@@ -154,10 +152,10 @@ else if(formModEdi){
                 method : "POST",
                 body : noticia
             }).then( (res) => res.text()).then( (res) => {
-                console.log(res);
+                // console.log(res);
+                alert("Libro Modificado");
+                window.location.href="../main.php?id=3";
             });
-            alert("Libro Modificado");
-            window.location.href="../main.php?id=3";
     
     });
 }

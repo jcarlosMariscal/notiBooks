@@ -44,10 +44,10 @@ if($tabla === "noticia"){
         $archivo = $_FILES["archivo"];
         $nombre_img = basename($archivo["name"]);
         $nombre_mod = date("m-d-y").$nombre_img;
-        $ruta = "../../img/" . $nombre_mod;
+        $ruta = "../../img/autor/".$nombre_mod;
         $subirArchivo = move_uploaded_file($archivo["tmp_name"],$ruta);
         if($subirArchivo){
-            $imagen = "img/$nombre_mod";
+            $imagen = "img/autor/$nombre_mod";
             $query -> updateAutorImage($id_autor,$nombre,$profesion,$nacimiento,$fallecimiento,$biografia,$obras,$imagen);
         }
     }else{
@@ -73,10 +73,10 @@ if($tabla === "noticia"){
         $archivo = $_FILES["archivo"];
         $nombre_img = basename($archivo["name"]);
         $nombre_mod = date("m-d-y").$nombre_img;
-        $ruta = "../../img/" . $nombre_mod;
+        $ruta = "../../img/libro/" . $nombre_mod;
         $subirArchivo = move_uploaded_file($archivo["tmp_name"],$ruta);
         if($subirArchivo){
-            $portada = "img/$nombre_mod";
+            $portada = "img/libro/$nombre_mod";
             $query -> updateLibroImage($ISBN,$titulo,$prologo,$fecha_publi,$link,$id_editorial,$portada);
         }
     }else{

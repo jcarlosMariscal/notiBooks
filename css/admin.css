@@ -79,7 +79,7 @@ input:focus{
     outline: none;
     border: 3px solid var(--header-footer);
 }
-.btn-e,.btn-r{
+.btn-e,.btn-r,.btn-x,.btn-y{
     background: var(--letters-color);
     color: var(--main-botton);
     border: 1px solid var(--header-footer);
@@ -91,13 +91,25 @@ input:focus{
 .btn-r{
     background: var(--body-color);
 }
-.btn-e{
+.btn-e,.btn-x,.btn-y{
     background: var(--body-color);
 }
 .btn-e:hover{
     background: var(--a-hover);
     color: var(--letters-color);
     border: 1px solid var(--a-hover);
+    cursor: pointer;
+}
+.btn-x:hover{
+    background: green;
+    color: var(--letters-color);
+    border: 1px solid green;
+    cursor: pointer;
+}
+.btn-y:hover{
+    background: #dabb31;
+    color: var(--letters-color);
+    border: 1px solid #dabb31;
     cursor: pointer;
 }
 .btn-r:hover{

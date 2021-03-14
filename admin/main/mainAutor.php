@@ -29,13 +29,15 @@
                             <td><?php echo $data['nacimiento']; ?></td>
                             <td><?php echo $data['fallecimiento']; ?></td>
                             <td class="modify"><a href="modificar/modificarAutor.php?autor=<?php echo $data['id_autor']; ?>"><i class="fas fa-marker"></i></a></td>
-                            <td class="delete"><a href="eliminar/datoRecibido.php?autor=<?php echo $data['id_autor']; ?>"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="eliminarAutor(id='<?php echo $data['id_autor']; ?>',nombre='<?php echo $data['nombre']; ?>')"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         <?php
                     }
                 }
                 ?>
             </table>
+            <form id="eliminarAutor" hidden></form>
         </div>
     </div>
 </div>
+<script src="../js/eliminar.js"></script>

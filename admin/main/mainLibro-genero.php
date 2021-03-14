@@ -28,7 +28,7 @@
                             if($aut){
                                 foreach($aut as $dat){
                                     if($dat['nombre'] == ""){
-                                        ?><td><a class="addG" href="agregar/addLibroAutor.php?ISBN=<?php echo $data['ISBN']; ?>">Agrega un autor</a></td><?php
+                                        ?><td><a class="addG" href="agregar/addLibroGenero.php?ISBN=<?php echo $data['ISBN']; ?>">Agrega un genero</a></td><?php
                                     }else{
                                         ?><td><?php echo $dat['nombre']; ?></td><?php
                                     }
