@@ -12,15 +12,11 @@ if($tabla == 'noticia'){
     if($archivo){
         $nombre_img = basename($archivo['name']);
         $nombre_mod = date("m-d-y").$nombre_img;
-        $ruta = "../../img/" . $nombre_mod;
+        $ruta = "../../img/noticia/" . $nombre_mod;
         $subirArchivo = move_uploaded_file($archivo["tmp_name"],$ruta);
         if($subirArchivo){
-            $fotografia = "img/$nombre_mod";
+            $fotografia = "img/noticia/$nombre_mod";
             $query->addNoticia($titulo,$entrada,$fotografia,$id_acceso,$categoria,$cuerpo);
-        }else{
-            ?>
-            <script>alert("Error al subir archivo")</script>
-            <?php
         }
     }
 }elseif($tabla == 'categoria'){

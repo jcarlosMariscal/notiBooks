@@ -46,10 +46,10 @@ if(formModificar){
                 method : "POST",
                 body : noticia
             }).then( (res) => res.text()).then( (res) => {
-                console.log(res);
+                // console.log(res);
+                alert("Noticia Modificada");
+                window.location.href="../main.php?id=1";
             });
-            alert("Noticia Modificada");
-            window.location.href="../main.php?id=1";
     
     });
 }else if(formModCat){
@@ -61,10 +61,10 @@ if(formModificar){
             method: 'POST',
             body: categoria
         }).then( (res) => res.text()).then( (data) => {
-            console.log(data);
+            // console.log(data);
+            alert("Categoria Modificada");
+            window.location.href="../main.php?id=2";
         });
-        alert("Categoria Modificada");
-        window.location.href="../main.php?id=2";
     });
 }else if(formModAcceso){
     formModAcceso.addEventListener('submit', (e) =>{
@@ -113,10 +113,10 @@ else if(formModEdi){
             method: 'POST',
             body: editorial
         }).then( (res) => res.text()).then( (data) => {
-            console.log(data);
+            // console.log(data);
+            alert("Editorial Modificado");
+            window.location.href="../main.php?id=4";
         });
-        alert("Editorial Modificado");
-        window.location.href="../main.php?id=4";
     });
 }else if(formModGen){
     formModGen.addEventListener('submit', (e) =>{
@@ -127,10 +127,10 @@ else if(formModEdi){
             method: 'POST',
             body: genero
         }).then( (res) => res.text()).then( (data) => {
-            console.log(data);
+            // console.log(data);
+            alert("Genero Modificado");
+            window.location.href="../main.php?id=4";
         });
-        alert("Genero Modificado");
-        window.location.href="../main.php?id=4";
     });
 }else if(formModLibro){
     var quill = new Quill('#editor', {

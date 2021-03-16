@@ -4,6 +4,7 @@
         require "select.php";
         $query = new select();
         $rol = $_SESSION["nombre"]["id_rol"];
+        // $acceso = $_SESSION["nombre"]["id_acceso"];
         $periodista = $_SESSION["nombre"]["id_acceso"];
         $acceso = ( empty ($_GET['acceso'] ) ? NULL : $_GET['acceso']);
         if($rol == 1){
@@ -62,7 +63,7 @@
                     <th>Categoria</th>
                 </tr>
                 <?php
-                if($periodista == 1){
+                if($rol == 2){
                     if($acceso){
                         $noticias = $query->getNoticias($acceso);
                     }else{
@@ -72,7 +73,7 @@
                 }
                 ?>
                 <?php
-                if($periodista == 2){
+                if($rol == 1){
                     $noticias = $query->getNoticias($periodista);
                 }
                 if($noticias){
@@ -86,7 +87,8 @@
                             <td><?php echo $data["fecha"]; ?></td>
                             <td><?php echo $data["nombre"]; ?></td>
                             <td class="modify"><a href="modificar/modificarNoticia.php?noticia=<?php echo $data['id_noticia']; ?>"><i class="fas fa-marker"></i></a></td>
-                            <td class="delete"><a href="eliminar/datoRecibido.php?id_noticia=<?php echo $data['id_noticia']; ?>"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="deleteNoticia(<?php echo $data['id_noticia']; ?>,titulo = '<?php echo $data['titulo']; ?>')"><i class="far fa-trash-alt"></i></a></td>
+                            
                         </tr>
                         <?php
                         $i++;
@@ -94,7 +96,8 @@
                 }
                 ?>
             </table>
+            <form id="eliminarNoticia"></form>
         </div>
     </div>
 </div>
-<script src="../js/agregar.js"></script>
+<script src="../js/eliminar.js"></script>

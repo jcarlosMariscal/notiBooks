@@ -348,6 +348,14 @@ tr td a:hover{
     font-family: var(--letters);
     box-shadow: 0px 0px 8px #ff0033;
 }
+.slect{
+    background: #2ab5be;
+    color: var(--letters-color);
+    padding: 0px 10px 0px 10px;
+    font-family: var(--letters);
+    margin-right: 10px;
+    box-shadow: 0px 0px 8px #2ab5be;
+}
 .formAgregar{
     /* margin: 10px; */
     background: var(--body-color);

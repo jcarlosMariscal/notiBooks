@@ -30,7 +30,7 @@
                 }
             }
             ?>
-            <h3>Modificar noticia [ <?php echo $id; ?> ] de: <?php echo $_SESSION["nombre"]["nombre"]; ?></h3>
+            <h3>Modificar noticia [ <?php echo $id; ?> ] de: <?php echo $_SESSION["nombre"]["nombre"]; ?> <i>Si no desea cambiar la imagen, por favor, omitalo.</i></h3>
             <input type="text" name="tabla" value="noticia" hidden>
             <input type="text" name="id_noticia" value="<?php echo $id; ?>" hidden>
             <label for="">Titulo: </label>
@@ -39,7 +39,9 @@
             <label for="">Entrada: </label>
             <input type="text" name="entrada" value="<?php echo $entrada; ?>" class="above">
 
-            <label for="categoria">Categoria: </label>
+            <input type="file" class="file" id="fotografia" >
+
+            <label for="categoria" class="slect">Vuelva a seleccionar una/la categoria: </label>
             <select name="categoria" id="categoria" class="">
                 <?php
                 $categoria = $query->getCategorias();
@@ -52,9 +54,6 @@
                     }
                 ?>  
             </select>
-
-            <label for="fotografia">¿Desea modificar la imagen?, si no es así, omita este campo.</label>
-            <input type="file" class="file" id="fotografia" >
 
             <input type="text" name="id_acceso" value="<?php echo $_SESSION["nombre"]["id_acceso"]; ?>" hidden> <br>
 

@@ -3,6 +3,8 @@
     if (!isset($_SESSION["nombre"])){
         header("Location: ../admin.php");
     }
+    require "agregar.php";
+    $query = new agregar();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,14 +28,31 @@
             <input type="text" name="entrada" placeholder="Introduce la entrada de la Noticia" class="above">
 
             <input type="file" class="file" id="fotografia">
-
-            <input type="text" name="id_acceso" value="<?php echo $_SESSION["nombre"]["id_acceso"]; ?>" hidden>
+            <?php
+            if($_SESSION["nombre"]["id_rol"] == 1){
+                ?><input type="text" name="id_acceso" value="<?php echo $_SESSION["nombre"]["id_acceso"]; ?>" hidden><?php
+            }elseif($_SESSION["nombre"]["id_rol"] == 2){
+                ?>
+                <label for="id_acceso">Periodista: </label>
+                <select name="id_acceso" id="id_acceso">
+                    <?php
+                    $periodista = $query->getPeriodista();
+                    if($periodista){
+                        foreach($periodista as $data){
+                            ?>
+                            <option value="<?php echo $data['id_acceso']; ?>"><?php echo $data['nombre']; ?></option>
+                            <?php
+                        }
+                    }
+                    ?> 
+                </select>
+                <?php
+            }
+            ?>
 
             <label for="categoria">Categoria: </label>
             <select name="categoria" id="categoria" class="">
                 <?php
-                require "agregar.php";
-                $query = new agregar();
                 $categoria = $query->getCategorias();
                 if($categoria){
                     foreach($categoria as $data){
@@ -45,7 +64,7 @@
                 ?>  
             </select>
 
-            <label for="">Cuerpo:</label><br>
+            <br><label for="">Cuerpo:</label><br>
             <input name="cuerpo" id="cuerpo" type="hidden">
             <div id="editor" ></div>
             <div class="btn-right">

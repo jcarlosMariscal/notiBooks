@@ -47,5 +47,4 @@
         </div>
     </div>
 </div>
-
-<script src="../js/agregar.js"></script>
+<script src="../js/eliminar.js"></script>

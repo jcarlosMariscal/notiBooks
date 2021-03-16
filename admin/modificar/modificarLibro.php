@@ -46,7 +46,7 @@
 
             <input type="file" class="file" id="portada">
 
-            <label for="categoria">Editorial: </label>
+            <label for="editorial">Editorial: </label>
             <select name="editorial" id="editorial" class="categoria">
                 <?php
                 $categoria = $query->getEdit();

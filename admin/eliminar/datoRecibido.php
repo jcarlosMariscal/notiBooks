@@ -44,5 +44,16 @@ if($tabla == "acceso"){
 }elseif($tabla == "genero"){
     $id = $_POST['id'];
     $query -> eliminarGenero($id);
+}elseif($tabla == "autBook"){
+    $ISBN = $_POST['ISBN'];
+    $id_autor = $_POST['autor'];
+    $query->eliminarAutLibro($ISBN,$id_autor);
+}elseif($tabla == "getBook"){
+    $ISBN = $_POST['ISBN'];
+    $id_genero = $_POST['genero'];
+    $query->eliminarGenLibro($ISBN,$id_genero);
+}elseif($tabla == "noticia"){
+    $id_noticia = $_POST['id'];
+    $query -> eliminarNoticia($id_noticia);
 }
 ?>

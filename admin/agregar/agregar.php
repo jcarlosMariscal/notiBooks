@@ -17,6 +17,7 @@ class agregar{
         $query -> bindParam(6,$categoria);
         if($query -> execute()){
             echo "<script> alert('Noticia Agregada'); window.location= '../main.php?id=1' </script>";
+            return true;
         }
     }
 
@@ -118,6 +119,16 @@ class agregar{
         $query -> bindParam(2,$id_autor);
         if($query->execute()){
             return true;
+        }
+    }
+
+    function getPeriodista(){
+        $rol = 1;
+        $sql = "SELECT id_acceso,nombre FROM acceso WHERE id_rol = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$rol);
+        if($query->execute()){
+            return $query;
         }
     }
 }

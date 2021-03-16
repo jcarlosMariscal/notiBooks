@@ -1,3 +1,5 @@
+var libroAutor = document.getElementById("libroAutor");
+
 function eliminarUser(id,nombre,rol){
     var eliminar = confirm("¿Quiere eliminar a : "+ nombre +" [ " + rol + " ]" + " de NotiBooks?");
     if(eliminar){
@@ -62,3 +64,66 @@ function eliminarGenero(id,nombre){
         });
     }
 }
+function deleteAutBook(ISBN,titulo){
+    var autor = prompt("Eliminar un autor del libro '" + titulo + "'. Escriba el nombre del autor para eliminar","");
+    if(autor == ""){
+        alert("No especifico ningun autor");
+    }else if(autor == undefined){
+
+    }else{
+        let name = new FormData(libroAutor);
+        const table = "autBook"
+        name.append("tabla", table);
+        name.append("ISBN", ISBN);
+        name.append("autor", autor);
+
+        fetch("../admin/eliminar/datoRecibido.php",{
+            method: 'POST',
+            body: name
+        }).then( (res) => res.text()).then( (data) =>{
+            console.log(data);
+            alert("Eliminar el autor: " + autor);
+            location.href="main.php?id=5";
+        });
+    }
+}  
+function deleteGenBook(ISBN,titulo){
+    var genero = prompt("Eliminar un genero del libro '" + titulo + "'. Escriba el el genero para eliminar","");
+    if(genero == ""){
+        alert("No especifico ningun autor");
+    }else if(genero == undefined){
+
+    }else{
+        let name = new FormData(libroAutor);
+        const table = "getBook"
+        name.append("tabla", table);
+        name.append("ISBN", ISBN);
+        name.append("genero", genero);
+
+        fetch("../admin/eliminar/datoRecibido.php",{
+            method: 'POST',
+            body: name
+        }).then( (res) => res.text()).then( (data) =>{
+            // console.log(data);
+            alert("Eliminar el genero: " + genero);
+            location.href="main.php?id=8";
+        });
+    }
+}  
+function deleteNoticia(id,titulo){
+    var eliminar = confirm("¿Quiere eliminar la noticia : "+ titulo + " ?");
+    // if(eliminar){
+    //     var eliminarNoticia = document.getElementById("eliminarNoticia");
+    //     let noticia = new FormData(eliminarNoticia);
+    //     noticia.append("tabla","noticia");
+    //     noticia.append("id",id);
+    //     alert(id);
+    
+    //     // fetch("../admin/eliminar/datoRecibido.php", {
+    //     //     method: 'POST',
+    //     //     body: noticia
+    //     // }).then( (res) => res.text()).then( (data) =>{
+    //     //     window.location.href='../admin/main.php?id=4';
+    //     // });
+    // }
+}  
