@@ -54,6 +54,21 @@ if($tabla == "acceso"){
     $query->eliminarGenLibro($ISBN,$id_genero);
 }elseif($tabla == "noticia"){
     $id_noticia = $_POST['id'];
-    $query -> eliminarNoticia($id_noticia);
+    $columna = "titulo";
+    $tabla = "noticia";
+    $titulo = $query -> getTableID($id_noticia,$columna,$tabla);
+    if($titulo){
+        echo $titulo;
+        $query -> eliminarNoticia($id_noticia);
+    }
+}elseif($tabla == "categoria"){
+    $id_categoria = $_POST['id'];
+    $columna = "nombre";
+    $tabla = "categoria";
+    $nombre = $query -> getTableID($id_categoria,$columna,$tabla);
+    if($nombre){
+        echo $nombre;
+        $query -> eliminarCategoria($id);
+    }
 }
 ?>

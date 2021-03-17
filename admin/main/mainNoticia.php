@@ -87,7 +87,7 @@
                             <td><?php echo $data["fecha"]; ?></td>
                             <td><?php echo $data["nombre"]; ?></td>
                             <td class="modify"><a href="modificar/modificarNoticia.php?noticia=<?php echo $data['id_noticia']; ?>"><i class="fas fa-marker"></i></a></td>
-                            <td class="delete"><a href="#" onclick="deleteNoticia(<?php echo $data['id_noticia']; ?>,titulo = '<?php echo $data['titulo']; ?>')"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="deleteNoticia(id = <?php echo $data['id_noticia']; ?>)"><i class="far fa-trash-alt"></i></a></td>
                             
                         </tr>
                         <?php

@@ -64,7 +64,7 @@
                             <?php
                             if($rol == 2){
                                 ?>
-                            <td class="delete"><a href="eliminar/datoRecibido.php?id_categoria=<?php echo $data['id_categoria']; ?>"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="delete"><a href="#" onclick="deleteCategoria(id = <?php echo $data['id_categoria']; ?>)"><i class="far fa-trash-alt"></i></a></td>
                                 <?php
                             }
                             ?>
@@ -74,7 +74,9 @@
                 }
                 ?>
             </table>
+            <form id="eliminarCategoria" hidden></form>
         </div>
 
     </div>
 </div>
+<script src="../js/eliminar.js"></script>

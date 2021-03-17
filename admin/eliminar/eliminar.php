@@ -10,10 +10,7 @@ class eliminar{
         $sql = "DELETE FROM noticia WHERE id_noticia = ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id);
-        if($query -> execute()){
-            header("Location: ../main.php");
-            return true;
-        }
+        $query -> execute();
     }
 
     function eliminarCategoria($id){
@@ -82,6 +79,18 @@ class eliminar{
                 $id_genero = $data['id_genero'];
             }
             return $id_genero;
+        }
+    }
+    function getTableID($id,$columna,$tabla){
+        $sql = "SELECT nombre FROM categoria WHERE id_categoria = ?";
+        $query = $this->cnx->prepare($sql);
+        $query->bindParam(1,$id);
+        if($query->execute()){
+            foreach($query as $data){
+                $titulo = $data['nombre'];
+                // echo $titulo;
+            }
+            return $titulo;
         }
     }
 

@@ -110,20 +110,38 @@ function deleteGenBook(ISBN,titulo){
         });
     }
 }  
-function deleteNoticia(id,titulo){
-    var eliminar = confirm("¿Quiere eliminar la noticia : "+ titulo + " ?");
-    // if(eliminar){
-    //     var eliminarNoticia = document.getElementById("eliminarNoticia");
-    //     let noticia = new FormData(eliminarNoticia);
-    //     noticia.append("tabla","noticia");
-    //     noticia.append("id",id);
-    //     alert(id);
+function deleteNoticia(id){
+    var eliminar = confirm("¿Quiere eliminar la noticia : Id = "+ id + " ?");
+    if(eliminar){
+        var eliminarNoticia = document.getElementById("eliminarNoticia");
+        let noticia = new FormData(eliminarNoticia);
+        noticia.append("tabla","noticia");
+        noticia.append("id",id);
     
-    //     // fetch("../admin/eliminar/datoRecibido.php", {
-    //     //     method: 'POST',
-    //     //     body: noticia
-    //     // }).then( (res) => res.text()).then( (data) =>{
-    //     //     window.location.href='../admin/main.php?id=4';
-    //     // });
-    // }
+        fetch("../admin/eliminar/datoRecibido.php", {
+            method: 'POST',
+            body: noticia
+        }).then( (res) => res.text()).then( (data) =>{
+            alert("Se ha eliminado la noticia: " + data);
+            window.location.href='../admin/main.php?id=1';
+        });
+    }
+}  
+function deleteCategoria(id){
+    var eliminar = confirm("¿Quiere eliminar la categoria : Id = "+ id + " ?");
+    if(eliminar){
+        var eliminarCategoria = document.getElementById("eliminarCategoria");
+        let categoria = new FormData(eliminarCategoria);
+        categoria.append("tabla","categoria");
+        categoria.append("id",id);
+    
+        fetch("../admin/eliminar/datoRecibido.php", {
+            method: 'POST',
+            body: categoria
+        }).then( (res) => res.text()).then( (data) =>{
+            console.log(data);
+            alert("Se ha eliminado la categoria: " + data);
+            window.location.href='../admin/main.php?id=2';
+        });
+    }
 }  
