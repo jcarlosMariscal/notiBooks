@@ -18,7 +18,6 @@ class eliminar{
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id);
         if($query -> execute()){
-            header("Location: ../main.php?id=2");
             return true;
         }
     }
@@ -28,7 +27,6 @@ class eliminar{
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id);
         if($query->execute()){
-            header("Location: ../main.php?id=7");
             return true;
         }
     }
@@ -82,12 +80,12 @@ class eliminar{
         }
     }
     function getTableID($id,$columna,$tabla){
-        $sql = "SELECT nombre FROM categoria WHERE id_categoria = ?";
+        $sql = "SELECT $columna FROM $tabla WHERE id_$tabla = ?";
         $query = $this->cnx->prepare($sql);
         $query->bindParam(1,$id);
         if($query->execute()){
             foreach($query as $data){
-                $titulo = $data['nombre'];
+                $titulo = $data["$columna"];
                 // echo $titulo;
             }
             return $titulo;

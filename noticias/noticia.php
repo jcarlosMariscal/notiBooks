@@ -17,20 +17,8 @@
                 $noticia = $query->noticia($id);
                 if($noticia){
                     foreach($noticia as $data){ 
-                        $titulo = $data['titulo']; 
-                        $entrada = $data['entrada']; 
-                        $cuerpo = $data['cuerpo']; 
-                        $fotografia = $data['fotografia']; 
-                        $fecha = $data['fecha'];
-                        $periodista = $data['periodista'];
-                        $categoria = $data['categoria'];
-                        $id_periodista = $data['id_periodista'];
+                        $id = $data['id_noticia']; $titulo = $data['titulo']; $entrada = $data['entrada']; $cuerpo = $data['cuerpo']; $fotografia = $data['fotografia']; $fecha = $data['fecha'];$periodista = $data['periodista']; $categoria = $data['categoria'];$id_periodista = $data['id_periodista'];
                     }
-                    // while($data->fetch($noticia)){  DE ESTA FORMA NO ES POSIBLE OBTENER MUCHOS DATOS 
-                    //     $titulo = $data['titulo'];
-                    //     $entrada = $data['entrada'];
-                    //     $cuerpo = $data['cuerpo'];
-                    // }
                 }
             ?>
             <article>
@@ -49,7 +37,7 @@
                     <h3>Noticias similares</h3>
                 </div>
                 <?php
-                $moreNoticia = $query->moreNoticia($categoria);
+                $moreNoticia = $query->moreNoticia($categoria,$id);
                 if($moreNoticia){
                     foreach($moreNoticia as $data){
                         $id = $data['id_noticia'];
@@ -67,36 +55,6 @@
                     }
                 }
                 ?>
-                <!-- <div class="not">
-                    <img src="img/book2.jpg" alt="" >
-                    <p>FCE: por pandemia, se cae la venta de libros en “La Joseluisa”</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book3.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book4.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book1.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book2.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="">Más información</a>
-                </div> -->
             </div>
         </section>
     </main>

@@ -7,7 +7,11 @@ include "config/conexion.php";
         }
 
         function numberRandom($id,$table){
-            $sql = "SELECT id_$table as id FROM $table";
+            if($table == "libro"){
+                $sql = "SELECT ISBN as id FROM $table";
+            }else{
+                $sql = "SELECT id_$table as id FROM $table";
+            }
             $query = $this->cnx->prepare($sql);
             if($query->execute()){
                 $id = array();
@@ -26,20 +30,28 @@ include "config/conexion.php";
             $sql = "SELECT $id as id FROM $table";
             $query = $this->cnx->prepare($sql);
             if($query->execute()){
-                $id = array(2,4,6,8,10,12);
+                $id = array();
                 $i=0;
                 while($datos = $query->fetch()){
                     $id_table = $datos['id'];
+                    $id[$i] = $id_table;
                     $i++;
                 }
                 $pos = count($id);
                 $t = $pos-1;
                 $posicion = array();
-                for($c=0;$c<$canti;$c++){
-                    $posicion[$c]=$id[$pos-($c+1)]; 
+                if($query->rowCount() < $canti){
+                    $maxOb = $query->rowCount();
+                    for($c=0;$c<$maxOb;$c++){
+                        $posicion[$c]=$id[$pos-($c+1)]; 
+                    }
+                    return $posicion;
+                }else{
+                    for($c=0;$c<$canti;$c++){
+                        $posicion[$c]=$id[$pos-($c+1)]; 
+                    }
+                    return $posicion;
                 }
-                // print_r($posicion);
-                return $posicion;
             }
         }
 
@@ -56,30 +68,68 @@ include "config/conexion.php";
 
         function pageMainNoticia(){
             $max = $this->limitTable("id_noticia","noticia",4);
-            // echo "DESDE PAGE MAIN NOTICIA";
-
-            $p1 = $max[0];
-            $p2 = $max[1];
-            $p3 = $max[2];
-            $p4 = $max[3];
-            $rol = "periodista";
-            $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia > ? and C.rol = ? ORDER BY A.id_noticia DESC";
-            $query = $this->cnx->prepare($sql);
-            $query -> bindParam(1,$limit);
-            $query -> bindParam(2,$rol);
+            $limit = count($max);
+            // echo "El maximo es: ".$limit;
+            $rol = 1;
+            if($limit == 1){
+                $p1 = $max[0];
+                $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia = ? AND C.rol = ? ORDER BY A.id_noticia DESC";
+                $query = $this->cnx->prepare($sql);
+                $query -> bindParam(1,$p1);
+                $query -> bindParam(2,$rol);
+            }
+            if($limit == 2){
+                $p1 = $max[0];
+                $p2 = $max[1];
+                $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia = ? OR id_noticia = ? AND C.rol = ? ORDER BY A.id_noticia DESC";
+                $query = $this->cnx->prepare($sql);
+                $query -> bindParam(1,$p1);
+                $query -> bindParam(2,$p2);
+                $query -> bindParam(3,$rol);
+            }
+            if($limit == 3){
+                $p1 = $max[0];
+                $p2 = $max[1];
+                $p3 = $max[2];
+                $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia = ? OR id_noticia = ? OR id_noticia = ? AND C.rol = ? ORDER BY A.id_noticia DESC";
+                $query = $this->cnx->prepare($sql);
+                $query -> bindParam(1,$p1);
+                $query -> bindParam(2,$p2);
+                $query -> bindParam(3,$p3);
+                $query -> bindParam(4,$rol);
+            }
+            if($limit == 4){
+                $p1 = $max[0];
+                $p2 = $max[1];
+                $p3 = $max[2];
+                $p4 = $max[3];
+                $rol = "periodista";
+                $sql = "SELECT A.titulo,A.fotografia,A.fecha,A.id_noticia,B.nombre FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN rol C ON B.id_rol = C.id_rol WHERE id_noticia = ? OR id_noticia = ? OR id_noticia = ? OR id_noticia = ? and C.rol = ? ORDER BY A.id_noticia DESC";
+                $query = $this->cnx->prepare($sql);
+                $query -> bindParam(1,$p1);
+                $query -> bindParam(2,$p2);
+                $query -> bindParam(3,$p3);
+                $query -> bindParam(4,$p4);
+                $query -> bindParam(5,$rol);
+            }
             if($query->execute()){
                 return $query;
             }
         }
 
         function pageMainLibros(){
-            $max = $this-> limitTable("ISBN","libro",4);
-            $p1 = $max[0];
-            $p2 = $max[1];
-            $p3 = $max[2];
-            $p4 = $max[3];
-            $sql = "SELECT ISBN, portada,titulo FROM libro";
+            $random1 = $this->numberRandom("ISBN","libro");
+            $random2 = $this->numberRandom("ISBN","libro");
+            $random3 = $this->numberRandom("ISBN","libro");
+            $random4 = $this->numberRandom("ISBN","libro");
+            $random5 = $this->numberRandom("ISBN","libro");
+            $sql = "SELECT ISBN, portada,titulo FROM libro WHERE ISBN = ? OR ISBN = ? OR ISBN = ? OR ISBN = ? OR ISBN = ?";
             $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$random1);
+            $query -> bindParam(2,$random2);
+            $query -> bindParam(3,$random3);
+            $query -> bindParam(4,$random4);
+            $query -> bindParam(5,$random5);
             if($query->execute()){
                 return $query;
             }

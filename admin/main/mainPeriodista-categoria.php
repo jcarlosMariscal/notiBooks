@@ -4,46 +4,20 @@
         $rol = $_SESSION["nombre"]["id_rol"];
         if($rol == 2){
             ?>
-            <label for="periodista">Periodista | </label>
-            <a href="" class="btn-noticia">Agregar periodista</a>
+            <a href="main.php?id=7" class="btn-noticia">Ver periodistas</a>
+            <label for="periodista"> | </label>
+            <a href="../admin/login.php" class="btn-noticia">Agregar periodista</a>
             <?php
         }
         ?>
-        <label for="periodista">Categoria | </label>
+        <!-- <label for="periodista">Categoria | </label> -->
         <a href="agregar/addCategoria.php" class="btn-noticia">Agregar categoria</a>
     </div>
     <div class="select">
         <?php
         require "select.php";
         $query = new select();
-        if($rol == 2){
-            ?>
-            <div class="selectPeriodista">
-                <table>
-                    <caption>PERIODISTAS</caption>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                    </tr>
-                    <?php
-                    $periodista = $query->getPeriodistas();
-                    if($periodista){
-                        foreach($periodista as $data){
-                            ?>
-                            <tr>
-                                <td><?php echo $data['id_acceso']; ?></td>
-                                <td><?php echo $data['nombre']; ?></td>
-                                <td class="delete"><i class="far fa-trash-alt"></i></td>
-                                <td class="modify"><i class="fas fa-marker"></i></td>
-                            </tr>
-                            <?php
-                        }
-                    }
-                    ?>
-                </table>
-            </div>
-            <?php
-        }
+
         ?>
         <div class="selectCategoria">
             <table>

@@ -14,11 +14,6 @@
                 $query = new selectMain();
                 $autor = $query->pageMainAutor(); 
                 if($autor){
-                    // while($data = $autor->fetch()){
-                    //     $nombre = $data['nombre'];
-                    //     $obras = $data['obras'];
-                    //     $id = $data['id_autor'];
-                    // }
                     foreach($autor as $data){
                         ?>
                         <h2><?php echo $data['nombre']; ?></h2>

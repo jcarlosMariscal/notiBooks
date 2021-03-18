@@ -6,7 +6,7 @@ class selectNoticia{
         $this->cnx = conexion::conectarDB();
     }
     function noticia($id){
-        $sql = "SELECT A.titulo,A.entrada,A.cuerpo,A.fotografia,A.fecha,B.nombre as periodista,C.nombre as categoria,B.id_acceso as id_periodista FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN categoria C ON A.id_categoria = C.id_categoria WHERE id_noticia = ?";
+        $sql = "SELECT A.id_noticia,A.titulo,A.entrada,A.cuerpo,A.fotografia,A.fecha,B.nombre as periodista,C.nombre as categoria,B.id_acceso as id_periodista FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN categoria C ON A.id_categoria = C.id_categoria WHERE id_noticia = ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id);
         if($query->execute()){
@@ -14,10 +14,35 @@ class selectNoticia{
         }
     }
 
-    function moreNoticia($categoria){
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ?";
+    function numberRandom($table,$dato){
+        if($table == "libro"){
+            $sql = "SELECT ISBN as id FROM libro";
+        }elseif($table == "noticia"){
+            $sql = "SELECT A.id_noticia as id FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$dato);
+        }
+        if($query->execute()){
+            $id = array();
+            $i=0;
+            while($datos = $query->fetch()){
+                $id_table = $datos['id'];
+                $id[$i] = $id_table;
+                $random = $id[array_rand($id)];
+                $i++;
+            }
+            return $random;
+        }
+    }
+
+    function moreNoticia($categoria,$id){
+        $random1 = $this->numberRandom("noticia",$categoria);
+
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE A.id_noticia = ? AND A.id_noticia != ? AND B.nombre = ?";
         $query = $this->cnx->prepare($sql);
-        $query -> bindParam(1,$categoria);
+        $query -> bindParam(1,$random1);
+        $query -> bindParam(2,$id);
+        $query -> bindParam(3,$categoria);
         if($query->execute()){
             return $query;
         }

@@ -17,13 +17,7 @@
             $autor = $query->libro($id);
             if($autor){
                 foreach($autor as $data){
-                    $ISBN = $data['ISBN'];
-                    $titulo = $data['titulo'];
-                    $portada = $data['portada'];
-                    $prologo = $data['prologo'];
-                    $fecha_publi = $data['fecha_publi'];
-                    $editorial = $data['editorial'];
-                    $id = $data['id_editorial'];
+                    $ISBN = $data['ISBN']; $titulo = $data['titulo']; $portada = $data['portada']; $prologo = $data['prologo']; $fecha_publi = $data['fecha_publi']; $editorial = $data['editorial']; $id = $data['id_editorial'];
                 }
             }
             ?>
@@ -39,7 +33,7 @@
         </section>
 
         <section class="bookGener">
-            <div><h3>Libros de la misma editorial</h3></div>
+            <div><h3>Libros similares</h3></div>
             <div class="books">
                 <?php
                 $moreLibro = $query->moreLibro($id);
@@ -60,34 +54,6 @@
                     }
                 }
                 ?>
-                <!-- <div class="book">
-                    <img src="img/portada2.jpg" alt="">
-                    <p>La luna</p>
-                    <p>Patricio Orizaba</p>
-                    <p>Terror</p>
-                    <a class="a" href="index.php?libro=6">Más información</a>
-                </div>&nbsp
-                <div class="book">
-                    <img src="img/portada3.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>Patricio Orizaba</p>
-                    <p>Terror</p>
-                    <a class="a" href="index.php?libro=6">Más información</a>
-                </div>&nbsp
-                <div class="book">
-                    <img src="img/portada4.jpg" alt="" >
-                    <p>La luna</p>
-                    <p>Patricio Orizaba</p>
-                    <p>Terror</p>
-                    <a class="a" href="index.php?libro=6">Más información</a>
-                </div>&nbsp
-                <div class="book">
-                    <img src="img/portada5.jpg" alt="">
-                    <p>La luna</p>
-                    <p>Patricio Orizaba</p>
-                    <p>Terror</p>
-                    <a class="a" href="index.php?libro=6">Más información</a>
-                </div> -->
             </div>
         </section>
 
@@ -115,36 +81,6 @@
                     }
                 }
                 ?>
-                <!-- <div class="not">
-                    <img src="img/book2.jpg" alt="" width="80">
-                    <p>FCE: por pandemia, se cae la venta de libros en “La Joseluisa”</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="index.php?noticia=10">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book3.jpg" alt="" width="80">
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="index.php?noticia=10">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book4.jpg" alt="" width="80">
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="index.php?noticia=10">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book1.jpg" alt="" width="80">
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="index.php?noticia=10">Más información</a>
-                </div>
-                <div class="not">
-                    <img src="img/book2.jpg" alt="" width="80">
-                    <p>La luna</p>
-                    <p>2021-02-15</p>
-                    <a class="a" href="index.php?noticia=10">Más información</a>
-                </div> -->
             </div>
         </section>
     </main>
