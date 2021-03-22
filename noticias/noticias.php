@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <main class="mainNoticias">
+    <main class="main">
         <section class="sectionNoticias">
+            <!-- <div class="titleSection">
+                <h2 class="center">Noticias mas recientes</h2>
+            </div> -->
             <?php
             include "selectNoticia.php";
+            $recibido = $_GET['pagina'];
             $query = new selectNoticia();
-            $noticia = $query->mainNoticia();
+            $noticia = $query->mainNoticia($recibido);
             if($noticia){
                 foreach($noticia as $data){
                     $titulo = $data['titulo'];
@@ -23,9 +27,9 @@
                     $id_noticia = $data['id_noticia'];
                     ?>
                     <article class="noticias">
-                        <h4><?php echo $titulo; ?></h4>
                         <img src="<?php echo $fotografia; ?>" alt="20" >
                         <p class="spans"><?php echo $fecha; ?> - <?php echo $periodista; ?></p>
+                        <h4><?php echo $titulo; ?></h4>
                         <p><?php echo $entrada; ?></p><br>
                         <div class="center">
                             <a class="btn" href="index.php?noticia=<?php echo $id_noticia; ?>">Leer más</a>
@@ -35,60 +39,36 @@
                 }
             }
             ?>
-            <!-- <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book2.jpg" alt="20">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book3.jpg" alt="20">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book4.jpg" alt="20">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book1.jpg" alt="20">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book3.jpg" alt="20">
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article>
-            <article class="noticias">
-                <h4>Por pandemia, se cae la venta de texcoco</h4>
-                <img src="img/book2.jpg" alt="20" >
-                <p class="spans">13-02-2021 07:08:16 - Sasha Esparta</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat a eum perferendis atque fugiat placeat voluptatem</p><br>
-                <div class="center">
-                    <a class="btn" href="index.php?noticia=10">Leer más</a>
-                </div>
-            </article> -->
+        </section>
+        <section class="paginacion clear">
+            <ul class="paginador">
+                <?php
+                    $paginador = $query ->paginador("id_noticia","noticia",$recibido);
+                    $total_pag = $paginador[2];
+                    $total_registro = $paginador[3];
+                    $contador = $query->mainNoticia($recibido);
+                    $rango = 10;
+                    if($total_registro>=2){
+
+                        ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="index.php?id=noticias&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
+
+                        if($total_pag<=$rango){
+                            for($i=1; $i<=$total_pag; $i++):?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="index.php?id=noticias&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php endfor;
+                        }else{
+
+                            for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):?>
+                            <!-- for($i=max(1, min($recibido-4,$total_pag-9)); $i<=max(10, min($recibido+5,$total_pag)); $i++):?> -->
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="index.php?id=noticias&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php endfor;
+                        }
+
+                        ?><li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="index.php?id=noticias&pagina=<?php echo $recibido+1; ?>">»</a></li><?php
+
+                    }
+                ?>
+            </ul>
         </section>
     </main>
 </body>

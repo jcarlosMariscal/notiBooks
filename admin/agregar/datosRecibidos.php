@@ -61,6 +61,7 @@ if($tabla == 'noticia'){
         $subirArchivo = move_uploaded_file($archivo["tmp_name"],$ruta);
         if($subirArchivo){
             $portada = "img/libro/$nombre_mod";
+            // echo "EL TITULO ES: ".$titulo;
             $query -> addLibro($ISBN,$titulo,$portada,$prologo,$fecha_publi,$link,$id_editorial);
         }
     }

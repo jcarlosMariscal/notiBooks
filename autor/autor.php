@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/notiBooks.css">
 </head>
 <body>
-    <main class="mainBook">
-        <section class="sectionBook">
-            <article>
+    <main class="mainNoticia">
+        <section class="sectionAutor">
+        <article>
                 <?php 
                 require "selectAutor.php";
                 $id_autor = $_GET['autor'];
@@ -36,9 +36,11 @@
                 <p><?php echo $biografia; ?></p>
             </article>
         </section>
-        <section class="autorBook">
-            <div><h3>Libros escritos</h3></div>
-            <div class="books">
+        <section class="bookt clear">
+            <div class="notis">
+                <div class="title">
+                    <h3>Algunos de sus libros</h3>
+                </div>
                 <?php
                 $libro = $query->libroAutor($id_autor);
                 if($libro){
@@ -47,12 +49,9 @@
                         $portada = $data[1];
                         $titulo = $data[2];
                         ?>
-                        <div class="book">
+                        <div class="boor">
                             <img src="<?php echo $portada; ?>" alt="" >
                             <p><?php echo $titulo; ?></p>
-                            <p><?php $get = $query -> getAutor($ISBN); 
-                                if($get){foreach($get as $autor){echo $autor[0];}}
-                            ?></p>
                             <p><?php $genero = $query -> getGenero($ISBN); 
                                 if($genero){foreach($genero as $data){echo $data[0]." " ;}}
                             ?></p>

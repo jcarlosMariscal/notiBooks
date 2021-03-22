@@ -17,7 +17,7 @@
             $autor = $query->libro($id);
             if($autor){
                 foreach($autor as $data){
-                    $ISBN = $data['ISBN']; $titulo = $data['titulo']; $portada = $data['portada']; $prologo = $data['prologo']; $fecha_publi = $data['fecha_publi']; $editorial = $data['editorial']; $id = $data['id_editorial'];
+                    $ISBN = $data['ISBN']; $titulo = $data['titulo']; $portada = $data['portada']; $prologo = $data['prologo']; $fecha_publi = $data['fecha_publi']; $editorial = $data['editorial']; $id_editorial = $data['id_editorial'];
                 }
             }
             ?>
@@ -25,9 +25,8 @@
                 <img src="<?php echo $portada; ?>" alt="">
                 <h2><?php echo $titulo; ?></h2>
                 <p>ISBN: <?php echo $ISBN; ?></p>
-                <p><?php echo $fecha_publi; ?> - <?php echo $editorial; ?></p>
-                <p><?php $genero = $query->getGenero($ISBN); if($genero){foreach($genero as $data){echo $data['nombre']; }} ?></p>
-                <p><?php $autor = $query-> getAutor($ISBN); if($genero){foreach($autor as $data){echo $data['nombre']; }} ?></p>
+                <p>Fecha Publicación: <b><?php echo $fecha_publi; ?></b>  Editorial: <b><?php echo $editorial; ?></b></p>
+                <p>Genero: <b><?php $genero = $query->getGenero($ISBN); if($genero){foreach($genero as $data){echo $data['nombre']; }} ?></b> Autor: <b><?php $autor = $query-> getAutor($ISBN); if($genero){foreach($autor as $data){echo $data['nombre']; }} ?></b></p>
                 <p><?php echo $prologo; ?></p>
             </article>
         </section>
@@ -36,7 +35,7 @@
             <div><h3>Libros similares</h3></div>
             <div class="books">
                 <?php
-                $moreLibro = $query->moreLibro($id);
+                $moreLibro = $query->moreLibro($id_editorial,$ISBN);
                 if($moreLibro){
                     foreach($moreLibro as $data){
                         $ISBN = $data['ISBN'];

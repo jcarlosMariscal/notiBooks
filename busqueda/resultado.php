@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="css/busqueda.css">
 </head>
 <body>
-    <main class="mainEditorial">
-        <section class="sectionEditorial">
+    <main class="main">
+        <section class="sectionBook">
+            <!-- <div class="titleSection">
+                <h2 class="center">Noticias mas recientes</h2>
+            </div> -->
             <?php
                 include "selectResultado.php";
                 $query = new selectResultado();
@@ -18,9 +21,16 @@
                 $genero = ( empty ($_GET['genero'] ) ? NULL : $_GET['genero']);
                 $temas = ( empty ($_POST['temas'] ) ? NULL : $_POST['temas']);
                 $frase = ( empty ($_POST['frase'] ) ? NULL : $_POST['frase']);
+                $recibido = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
+                if(!$recibido){
+                    $recibido = 1;
+                }
                 
                 if($temas == "nombre"){
-                    $libro = $query->getNameBook($frase);
+                    $libro = $query->getNameBook($frase,$recibido);
+                    $nom = $frase;
+                    $referencia = "libroName";
+                    // $tabla = ""
                     if($libro->rowCount()){
                         ?><h2>Libros relacionados con el <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
                     }else{
@@ -30,14 +40,16 @@
                     $tablaRelacion = "autor_libro";
                     $tablaDestino = "autor";
                     $idTabla = "id_autor";
+                    $referencia = "libro";
                     if($autor){
+                        $aut = $_GET['autor'];
                         $tabla = "autor";
                         $nombreAutor = $query-> getIDTable($autor,$tabla);
-                        if($nombreAutor){foreach($nombreAutor as $data){$nomAutor = $data['nombre'];}}
-                        ?><h2>Libros del Autor: <a class="a" href="index.php?autor=<?php echo $autor; ?>"><?php echo $nomAutor ?></a></h2><?php
-                        $libro = $query->libro($nomAutor,$idTabla,$tablaRelacion,$tablaDestino);
+                        if($nombreAutor){foreach($nombreAutor as $data){$nom = $data['nombre'];}}
+                        ?><h2>Libros del Autor: <a class="a" href="index.php?autor=<?php echo $autor; ?>"><?php echo $nom ?></a></h2><?php
+                        $libro = $query->libro($nom,$idTabla,$tablaRelacion,$tablaDestino,$recibido);
                     }elseif($temas=="autor"){
-                        $libro = $query->libro($frase,$idTabla,$tablaRelacion,$tablaDestino);
+                        $libro = $query->libro($frase,$idTabla,$tablaRelacion,$tablaDestino,$recibido);
                         if($libro->rowCount()>0){
                             ?><h2>Libros encontrados del <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
                         }else{
@@ -45,14 +57,16 @@
                         }
                     }
                 }elseif($editorial or $temas=="editorial"){
+                    $referencia = "editorial";
                     if($editorial){
+                        $aut = $_GET['editorial'];
                         $tabla = "editorial";
                         $nombreEditorial = $query->getIDTable($editorial,$tabla);
-                        if($nombreEditorial){ foreach($nombreEditorial as $data) { $nomEditorial = $data['nombre']; } }
-                        $libro = $query->getBookEditorial($nomEditorial);
-                        ?><h2>Libros con la editorial: <?php echo $nomEditorial ?></h2><?php
+                        if($nombreEditorial){ foreach($nombreEditorial as $data) { $nom = $data['nombre']; } }
+                        $libro = $query->getBookEditorial($nom,$recibido);
+                        ?><h2>Libros con la editorial: <?php echo $nom ?></h2><?php
                     }elseif($temas=="editorial"){
-                        $libro = $query->getBookEditorial($frase);
+                        $libro = $query->getBookEditorial($frase,$recibido);
                         if($libro->rowCount() > 0){
                             ?><h2>Libros encontrados con la <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
                         }else{
@@ -61,16 +75,17 @@
                     }
                 }elseif($genero or $temas=="genero"){
                     $tablaRelacion = "libro_genero";
-                    $tablaDestino = "genero";
                     $idTabla = "id_genero";
+                    $referencia = "genero";
                     if($genero){
+                        $aut = $_GET['genero'];
                         $tabla = "genero";
                         $nombreGenero = $query-> getIDTable($genero,$tabla);
-                        if($nombreGenero){foreach($nombreGenero as $data){$nomGenero = $data['nombre']; }}
-                        $libro =$query->libro($nomGenero,$idTabla,$tablaRelacion,$tablaDestino);
-                        ?><h2>Libros con el genero: <?php echo $nomGenero ?></h2><?php
+                        if($nombreGenero){foreach($nombreGenero as $data){$nom = $data['nombre']; }}
+                        $libro =$query->libro($nom,$idTabla,$tablaRelacion,$referencia,$recibido);
+                        ?><h2>Libros con el genero: <?php echo $nom ?></h2><?php
                     }elseif($temas=="genero"){
-                        $libro = $query->libro($frase,$idTabla,$tablaRelacion,$tablaDestino);
+                        $libro = $query->libro($frase,$idTabla,$tablaRelacion,$referencia,$recibido);
                         if($libro->rowCount() > 0){
                             ?><h2>Libros encontrados con el <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
                         }else{
@@ -88,12 +103,12 @@
                         $portada = $data['portada'];
                         $editorial = $data['editorial'];
                         ?>
-                        <article class="pageEditorial">
-                            <h4><?php echo $titulo; ?></h4>
+                        <article class="pageBook">
                             <img src="<?php echo $portada; ?>" alt="20" >
-                            <p >Autor: <?php $autor=$query->getAutor($ISBN); if($autor){ foreach($autor as $data){ echo $data['nombre']; } } ?></p>
+                            <h4><?php echo $titulo; ?></h4>
                             <p >Genero: <?php $genero=$query->getGenero($ISBN); if($genero){foreach($genero as $data){ echo $data[0]; }} ?></p>
-                            <p >Editorial: <?php echo $editorial; ?></p> <br>
+                            <p >Editorial: <?php echo $editorial; ?></p>
+                            <p class="">De: <?php $autor=$query->getAutor($ISBN); if($autor){ foreach($autor as $data){ echo $data['nombre']; } } ?></p>
                             <div class="center">
                                 <a class="btn" href="index.php?libro=<?php echo $ISBN; ?>">Leer más</a>
                             </div>
@@ -103,6 +118,40 @@
                 }
 
             ?>
+        </section>
+        <section class="paginacion clear">
+            <ul class="paginador">
+                <?php
+                    $paginador = $query ->paginador($referencia,$recibido,$nom);
+                    $inicio = $paginador[0];
+                    $limit_pag = $paginador[1];
+                    $total_pag = $paginador[2];
+                    $total_registro = $paginador[3];
+                    // $contador = $query->mainBook($recibido);
+                    // echo "Empieza en: ".$inicio."<br>";
+                    // echo "Registro por pagina: ".$limit_pag."<br>";
+                    // echo "Total paginas : ".$total_pag."<br>";
+                    // echo "Total registro: ".$total_registro."<br>";
+                    $rango = 10;
+                    if($total_registro>=3){
+                        ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
+
+                        if($total_pag<=$rango){
+                            for($i=1; $i<=$total_pag; $i++):?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php endfor;
+                        }else{
+
+                            for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php endfor;
+                        }
+
+                        ?><li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido+1; ?>">»</a></li>
+                        <?php
+                    }
+                ?>
+            </ul>
         </section>
     </main>
 </body>

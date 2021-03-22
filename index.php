@@ -9,6 +9,7 @@
     $libro = ( empty ($_GET['libro'] ) ? NULL : $_GET['libro']);
     $autor = ( empty ($_GET['autor'] ) ? NULL : $_GET['autor']);
     $noticia = ( empty ($_GET['noticia'] ) ? NULL : $_GET['noticia']);
+    // $libroPag = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
     if($pagina){
         if($pagina=="inicio"){
             ?><title>INICIO</title><?php

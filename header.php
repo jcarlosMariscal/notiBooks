@@ -12,8 +12,8 @@
         <nav>
             <ul>
                 <li><a class="menu" href="index.php?id=inicio">INICIO</a></li>
-                <li><a class="menu" href="index.php?id=noticias">NOTICIAS</a></li>
-                <li><a class="menu" href="index.php?id=libros">LIBROS</a></li>
+                <li><a class="menu" href="index.php?id=noticias&pagina=1">NOTICIAS</a></li>
+                <li><a class="menu" href="index.php?id=libros&pagina=1">LIBROS</a></li>
                 <li class="buscador">
                     <div class="buscar">
                         <form action="busqueda.php" method="POST">

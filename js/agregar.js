@@ -150,7 +150,7 @@ if(formAdd){
                 method: 'POST',
                 body: autor
             }).then( (res) => res.text()).then( (data) => {
-                // console.log(data);
+                console.log(data);
                 alert("El libro ha sido agregado. Por favor agregue su genero y autor a continuación.");
                 window.location='addLibroGenero.php?ISBN='+ISBN; 
             });

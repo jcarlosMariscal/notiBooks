@@ -39,12 +39,12 @@ body{
 }
 .main{
     width: 90%;
-    max-width: 1000px;
+    max-width: 1250px;
     margin: 20px auto;
     background: var(--letters-color);
     font-family: var(--letters);
     padding: 10px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
     /* height: 890px; */
 }
 
@@ -68,6 +68,7 @@ nav ul li .menu:hover{
     font-size: 18px;
     color: var(--main-botton);
 }
+/*BUSCAR*/
 .buscador{
     float: right;
     margin-right: 2%;
@@ -81,12 +82,13 @@ nav ul .buscador .buscar p{
     font-family: var(--letters);
 }
 nav ul .buscador .buscar select{
-    /* color: red; */
-    border-radius: 5px;
+    color: black;
+    /* border-radius: 5px; */
     font-size: 16px;
     font-family: var(--letters);
-    background: var(--body-color);
+    background: white;
     border: 1px solid var(--header-footer);
+    height: 4vh;
 }
 nav ul .buscador .buscar select:focus{
     outline: none;
@@ -95,28 +97,33 @@ nav ul .buscador .buscar input{
     border-radius: 2px;
     font-size: 16px;
     font-family: var(--letters);
-    background: var(--body-color);
+    background: white;
     border: 1px solid var(--header-footer);
+    height: 4vh;
+    padding-left: 5px;
 }
 nav ul .buscador .buscar input:focus{
     outline: none;
     /* border: 1px solid var(--header-footer); */
 }
 .btnBuscar{
-    background: var(--body-color);
+    background: white;
     margin-left: 10px;
     font-size: 16px;
     font-family: var(--letters);
     padding: 0px 8px 0px 8px;
-    border-radius: 5px;
-    color: var(--main-botton);
+    /* border-radius: 5px; */
+    color: black;
+    height: 4vh;
 }
 .btnBuscar:hover{
-    color: var(--letters-color);
-    background: var(--header-footer);
-    padding: 0px 8px 0px 8px;
-    border-color: var(--body-color);
+    color: black;
+    background: #e1e5eb;
+    /* padding: 0px 8px 0px 8px; */
+    /* border-color: var(--body-color); */
 }
+/*BUSCAR*/
+
 /* Barra de navegacion */
 .cabeza{
     padding: 10px;
@@ -127,7 +134,7 @@ nav ul .buscador .buscar input:focus{
     margin: 10px;
 }
 .section{
-    /* background: white; */
+    /* background: green; */
     margin: 5px;
     margin-bottom: 20px;
     width: 70%;
@@ -137,8 +144,10 @@ nav ul .buscador .buscar input:focus{
 aside{
     margin: 10px;
     padding: 10px;
-    border: 1px solid var(--aside-border);
-    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    /* border: 1px solid var(--aside-border); */
+    /* box-shadow: 1px 1px 1px 1px var(--aside-border-shadow); */
+    border: 3px solid  var(--aside-border-shadow);
+    border-top: 10px solid var(--aside-border-shadow);
     width: 24.6%;
     float: left;
     height: 613px;
@@ -205,9 +214,14 @@ aside{
     width: 45%;
     height: 270px;
     float: left;
-    border-radius: 10px;
-    border: 1px solid var(--aside-border);
-    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    border-radius: 5px;
+    /* border: 1px solid var(--aside-border); */
+    /* box-shadow: 1px 1px 1px 1px var(--aside-border-shadow); */
+    border: 3px solid  var(--aside-border-shadow);
+    border-top: 10px solid var(--aside-border-shadow);
+}
+.noticiaMain:hover{
+    background: var(--body-color);
 }
 .main .section .noticiaMain h4{
     padding: 5px;
@@ -221,22 +235,27 @@ aside{
 }
 .center{
     text-align: center;
+    /* background: red; */
+    margin-top: 12px;
 }
 .btn{
-    text-align: center;
+    /* text-align: right; */
     text-decoration: none;
     padding: 8px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     color: var(--letters-color);
     background: var(--header-footer);
 }
+.right{
+    text-align: right;
+}
 .btn:hover{
-    background: white;
-    color: var(--main-botton);
+    background: #698998;
+    color: var(--letters-color);
     font-size: 20px;
     border: 2px solid var(--header-footer);
     padding: 6px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 /*pie de foto*/
 /* .main .section .noticiaMain{
@@ -254,40 +273,33 @@ aside{
 
 
 /*NOTICIAS.PHP CODIGO CSS*/
-.mainNoticias{
-    width: 90%;
-    max-width: 1000px;
-    margin: 20px auto;
-    background: var(--letters-color);
-    font-family: var(--letters);
-    padding: 10px;
-    border-radius: 15px;
-    height: 1250px;
-}
 .sectionNoticias{
     /* background: blue; */
     margin: 5px;
     margin-bottom: 20px;
-    width: cal(100%-10px);
+    width: 100%;
     float: left;
 }
 .noticias{
-    margin: 5px;
-    padding: 8px;
+    margin: 8px;
+    padding: 7px;
     width: 30.4%;
-    height: 385px;
+    height: 350px;
     float: left;
-    border-radius: 10px;
-    border: 1px solid var(--aside-border);
-    /* box-shadow: 1px 1px 1px 1px var(--aside-border-shadow); */
-    box-shadow: 0px 0px 5px var(--header-footer);
+    border-radius: 5px;
+    border: 3px solid  var(--aside-border-shadow);
+    /* box-shadow: 0px 0px 5px var(--header-footer); */
+    border-top: 10px solid var(--header-footer);
 }
-.mainNoticias .sectionNoticias .noticias p{
+.noticias:hover{
+    background: var(--body-color);
+}
+.main .sectionNoticias .noticias p{
     text-align: justify;
 }
-.mainNoticias .sectionNoticias .noticias img{
+.main .sectionNoticias .noticias img{
     width: 100%;
-    height: 50%;
+    height: 25vh;
 }
 
 .spans{
@@ -301,41 +313,37 @@ aside{
 /*NOTICIAS.PHP CODIGO CSS*/
 
 /*LIBROS.PHP CODIGO CSS*/
-.mainBooks{
-    width: 90%;
-    max-width: 1000px;
-    margin: 20px auto;
-    background: var(--letters-color);
-    font-family: var(--letters);
-    padding: 10px;
-    border-radius: 15px;
-    height: 865px;
-}
-.sectionBooks{
-    /* background: blue; */
-    width: 100%;
+.sectionBook{
+    /* background: green; */
     margin: 5px;
     margin-bottom: 20px;
-    width: cal(100%-10px);
+    width: 100%;
     float: left;
 }
+
 .pageBook{
     /* background: red; */
-    margin: 5px;
+    margin: 6px;
     padding: 8px;
     width: 30%;
-    height: 200px;
+    height: 190px;
     float: left;
-    border-radius: 10px;
-    border: 1px solid var(--aside-border);
-    box-shadow: 1px 1px 1px 1px var(--aside-border-shadow);
+    border-radius: 5px;
+    /* border: 1px solid var(--aside-border); */
+    /* box-shadow: 1px 1px 1px 1px var(--aside-border-shadow); */
+    border: 3px solid  var(--aside-border-shadow);
+    border-top: 10px solid var(--header-footer);
+    
 }
-.mainBooks .sectionBooks .pageBook img{
-    height: 58%;
+.pageBook:hover{
+    background: var(--body-color);
+}
+.main .sectionBook .pageBook img{
+    height: 95%;
     float: left;
     padding: 5px;
 }
-.mainBooks .sectionBooks .pageBook p{
+.main .sectionBook .pageBook p{
     padding: 5px;
 }
 .prologo{
@@ -343,3 +351,58 @@ aside{
     margin-bottom: 6px;
 }
 /*LIBROS.PHP CODIGO CSS*/
+
+/*PAGINADOR*/
+.paginacion{
+    padding: 10px;
+    /* background: #71BBDF; */
+    text-align: center;
+}
+.paginacion a{
+    text-decoration: none;
+    font-size: 16px;
+}
+.paginacion a:hover{
+    background: #7bec7f;
+}
+
+ul.paginador {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.paginador li {display: inline;}
+
+ul.paginador li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.paginador li:first-child a {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.paginador li:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+ul.paginador li a.active {
+    background-color: var(--header-footer);
+    color: white;
+    border: 1px solid var(--header-footer);
+}
+.disabled { 
+    pointer-events: none; 
+    cursor: default; 
+} 
+.disabled a{
+    background: var(--body-color);
+}
+/*PAGINADOR*/

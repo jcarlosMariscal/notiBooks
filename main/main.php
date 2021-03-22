@@ -89,7 +89,7 @@
                         $id=$data[0];
                         $nombre=$data[1];
                         ?>
-                        <a class="c" href="busqueda.php?autor=<?php echo $id; ?>"> <?php echo $nombre; ?> </a>
+                        <a class="c" href="busqueda.php?autor=<?php echo $id; ?>&pagina=1"> <?php echo $nombre; ?> </a>
                         <?php
                     }
                     ?></p><?php
@@ -105,7 +105,7 @@
                         $id=$data[0];
                         $nombre=$data[1];
                         ?>
-                        <a class="c" href="busqueda.php?genero=<?php echo $id; ?>"> <?php echo $nombre; ?></a>
+                        <a class="c" href="busqueda.php?genero=<?php echo $id; ?>&pagina=1"> <?php echo $nombre; ?></a>
                         <?php
                     }
                     ?></p><?php
@@ -121,7 +121,7 @@
                         $id=$data[0];
                         $nombre=$data[1];
                         ?>
-                        <a class="c" href="busqueda.php?editorial=<?php echo $id; ?>"> <?php echo $nombre; ?></a>
+                        <a class="c" href="busqueda.php?editorial=<?php echo $id; ?>&pagina=1"> <?php echo $nombre; ?></a>
                         <?php
                     }
                     ?></p><?php

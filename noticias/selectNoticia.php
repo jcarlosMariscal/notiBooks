@@ -5,6 +5,23 @@ class selectNoticia{
     function  __construct(){
         $this->cnx = conexion::conectarDB();
     }
+    function paginador($id,$tabla,$recibido){
+        $cantidad_pagina  = 3;
+        if($recibido == 1){
+            $pagina = 1;
+        }else{
+            $pagina = $recibido;
+        }
+        $inicio = ($pagina-1)*$cantidad_pagina;
+        $sql = "SELECT $id FROM $tabla";
+        $query = $this->cnx->prepare($sql);
+        if($query->execute()){
+            $num_registro = $query->rowCount();
+            $total_pag = ceil($num_registro/$cantidad_pagina); //Total paginas
+            return array($inicio,$cantidad_pagina,$total_pag,$num_registro);
+        }
+    }
+
     function noticia($id){
         $sql = "SELECT A.id_noticia,A.titulo,A.entrada,A.cuerpo,A.fotografia,A.fecha,B.nombre as periodista,C.nombre as categoria,B.id_acceso as id_periodista FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso INNER JOIN categoria C ON A.id_categoria = C.id_categoria WHERE id_noticia = ?";
         $query = $this->cnx->prepare($sql);
@@ -48,8 +65,11 @@ class selectNoticia{
         }
     }
 
-    function mainNoticia(){
-        $sql = "SELECT A.id_noticia,A.titulo,A.fotografia,A.fecha,A.entrada,B.nombre as periodista FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso ORDER BY A.id_noticia DESC";
+    function mainNoticia($recibido){
+        $paginador = $this->paginador("id_noticia","noticia",$recibido);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT A.id_noticia,A.titulo,A.fotografia,A.fecha,A.entrada,B.nombre as periodista FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso ORDER BY A.id_noticia DESC LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query->execute()){
             return $query;

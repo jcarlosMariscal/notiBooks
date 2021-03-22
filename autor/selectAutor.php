@@ -16,7 +16,7 @@ include "config/conexion.php";
         }
 
         function libroAutor($id_autor){
-            $sql = "SELECT A.ISBN,A.portada,A.titulo FROM libro A INNER JOIN autor_libro B ON A.ISBN = B.ISBN INNER JOIN autor C ON B.id_autor = C.id_autor WHERE C.id_autor = ?";
+            $sql = "SELECT A.ISBN,A.portada,A.titulo FROM libro A INNER JOIN autor_libro B ON A.ISBN = B.ISBN INNER JOIN autor C ON B.id_autor = C.id_autor WHERE C.id_autor = ? LIMIT 0,4";
             $query = $this->cnx->prepare($sql);
             $query -> bindParam(1,$id_autor);
             if($query->execute()){

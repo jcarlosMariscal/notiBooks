@@ -8,9 +8,11 @@ class selectLibro{
     function numberRandom($table, $dato){
         if($table == "libro"){
             $sql = "SELECT ISBN as id FROM libro WHERE id_editorial = ?";
+            $query = $this->cnx->prepare($sql);
             $query -> bindParam(1,$dato);
         }elseif($table == "noticia"){
             $sql = "SELECT A.id_noticia as id FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ?";
+            $query = $this->cnx->prepare($sql);
             $query -> bindParam(1,$dato);
         }
         if($query->execute()){
@@ -51,29 +53,53 @@ class selectLibro{
         }
     }
 
-    function moreLibro($editorial){
+    function moreLibro($editorial,$ISBN){
         $random1 = $this->numberRandom("libro",$editorial);
-        $sql = "SELECT ISBN,titulo,portada,id_editorial FROM libro WHERE id_editorial = ? AND ISBN = ?";
+        $sql = "SELECT ISBN,titulo,portada,id_editorial FROM libro WHERE id_editorial = ? AND ISBN = ? AND ISBN != ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$editorial);
         $query -> bindParam(2,$random1);
+        $query -> bindParam(3,$ISBN);
         if($query->execute()){
             return $query;
         }
     }
 
     function moreNoticia(){
-        $categoria = "libro";
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ?";
+        $categoria = "Libros";
+        $random1 = $this->numberRandom("noticia",$categoria);
+        $random2 = $this->numberRandom("noticia",$categoria);
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ? AND A.id_noticia = ? OR A.id_noticia = ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$categoria);
+        $query -> bindParam(2,$random1);
+        $query -> bindParam(3,$random2);
         if($query->execute()){
             return $query;
         }
     }
 
-    function mainBook(){
-        $sql = "SELECT A.ISBN, A.titulo,A.portada,A.fecha_publi,B.nombre as editorial FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial ORDER BY A.titulo ASC";
+    function paginador($id,$tabla,$recibido){
+        $cantidad_pagina  = 9;
+        if($recibido == 1){
+            $pagina = 1;
+        }else{
+            $pagina = $recibido;
+        }
+        $inicio = ($pagina-1)*$cantidad_pagina;
+        $sql = "SELECT $id FROM $tabla";
+        $query = $this->cnx->prepare($sql);
+        if($query->execute()){
+            $num_registro = $query->rowCount();
+            $total_pag = ceil($num_registro/$cantidad_pagina); //Total paginas
+            return array($inicio,$cantidad_pagina,$total_pag,$num_registro);
+        }
+    }
+    function mainBook($recibido){
+        $paginador = $this->paginador("ISBN","libro",$recibido);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT A.ISBN, A.titulo,A.portada,A.fecha_publi,B.nombre as editorial FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial ORDER BY A.titulo ASC LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query->execute()){
             return $query;

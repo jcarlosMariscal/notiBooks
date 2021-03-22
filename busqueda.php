@@ -45,7 +45,7 @@
         }else{
             echo "No se encontró, intenta con otra cosa o verficando la redaccion";
         }
+        include  "footer.php";
     ?>
-    <?php include  "footer.php"; ?>
 </body>
 </html>

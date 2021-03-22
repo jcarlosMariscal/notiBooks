@@ -25,8 +25,7 @@
                 <img src="<?php echo $fotografia; ?>" alt="" height="260">
                 <h2><?php echo $titulo; ?></h2>
                 <h4><?php echo $entrada; ?></h4>
-                <p>Por: <a class="c" href="busqueda.php?periodista=<?php echo $id_periodista; ?>"><?php echo $periodista; ?></a></p>
-                <p><?php echo $fecha; ?></p>
+                <p>Por: <a class="c" href="busqueda.php?periodista=<?php echo $id_periodista; ?>"><?php echo $periodista; ?></a> - <?php echo $fecha; ?></p>
                 <p><?php echo $cuerpo; ?></p>
                 
             </article>
