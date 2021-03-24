@@ -16,7 +16,17 @@
                 <?php
                 require "select.php";
                 $query = new select();
-                $editorial = $query->getEditorial();
+                $recibido = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
+                // $recibido = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
+                $pag = ( empty ($_GET['pag'] ) ? NULL : $_GET['pag']);
+                if(!$recibido){
+                    $recibido = 1;
+                }
+                if(!$pag){
+                    $pag = 1;
+                }
+                $id = ( empty ($_GET['id'] ) ? NULL : $_GET['id']);
+                $editorial = $query->getEditorial($recibido);
                 if($editorial){
                     foreach($editorial as $data){
                         ?>
@@ -31,6 +41,34 @@
                 }
                 ?>
             </table>
+            <section class="paginacion clear">
+                <ul class="paginador">
+                    <?php
+                        $paginador = $query ->paginador("editorial",$recibido,null);
+                        $total_pag = $paginador[2];
+                        $total_registro = $paginador[3];
+                        $rango = 10;
+                        if($total_registro>=2){
+                            ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
+                            
+
+                            if($total_pag<=$rango){
+                                for($i=1; $i<=$total_pag; $i++):
+                                ?><li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }else{
+
+                                for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):
+                                ?><li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }
+
+                            ?><li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido+1; ?>">»</a></li><?php
+
+                        }
+                    ?>
+                </ul>
+            </section>
         </div>
         <div class="selectCategoria">
             <table>
@@ -40,7 +78,7 @@
                     <th>Nombre</th>
                 </tr>
                 <?php
-                $genero = $query ->getGenero();
+                $genero = $query ->getGenero($pag);
                 if($genero){
                     foreach($genero as $data){
                         ?>
@@ -56,6 +94,34 @@
                 ?>
             </table>
             <form id="eliminarEditGen" hidden></form>
+            <section class="paginacion clear">
+                <ul class="paginador">
+                    <?php
+                        $paginador = $query ->paginador("genero",$pag,null);
+                        $total_pag = $paginador[2];
+                        $total_registro = $paginador[3];
+                        $rango = 10;
+                        if($total_registro>=2){
+                            ?><li class="<?php echo $pag<=1 ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pag=<?php echo $pag-1; ?>">«</a></li><?php
+                            
+
+                            if($total_pag<=$rango){
+                                for($i=1; $i<=$total_pag; $i++):
+                                ?><li><a class="<?php echo $pag==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pag=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }else{
+
+                                for($i=max(1, min($pag-4,$total_pag-($rango-1))); $i<=max($rango, min($pag+5,$total_pag)); $i++):
+                                ?><li><a class="<?php echo $pag==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pag=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }
+
+                            ?><li class="<?php echo $pag>=$total_pag ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pag=<?php echo $pag+1; ?>">»</a></li><?php
+
+                        }
+                    ?>
+                </ul>
+            </section>
         </div>
 
     </div>

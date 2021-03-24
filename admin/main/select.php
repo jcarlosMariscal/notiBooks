@@ -5,24 +5,72 @@ class select{
     function __construct(){
         $this->cnx = conexion::conectarDB();
     }
+    function paginador($tabla,$recibido,$id_acceso){
+        $cantidad_pagina  = 1;
+        if($recibido == 1){
+            $pagina = 1;
+        }else{
+            $pagina = $recibido;
+        }
+        $inicio = ($pagina-1)*$cantidad_pagina;
+        if($tabla == "noticia"){
+            if($id_acceso == "todos"){
+                $sql = "SELECT id_noticia FROM noticia";
+                $query = $this->cnx->prepare($sql);
+            }else{
+                $sql = "SELECT A.id_noticia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso WHERE C.id_acceso = ?";
+                $query = $this->cnx->prepare($sql);
+                $query -> bindParam(1,$id_acceso);
+            }
+        }elseif($tabla == "categoria"){
+            $sql = "SELECT * FROM categoria";
+            $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "libro"){
+            $sql = "SELECT ISBN FROM libro";
+            $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "autor"){
+            $sql = "SELECT id_autor FROM autor";
+            $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "editorial"){
+            $sql = "SELECT * FROM editorial";
+            $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "genero"){
+            $sql = "SELECT * FROM genero";
+            $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "acceso"){
+            $sql = "SELECT A.id_acceso FROM acceso A INNER JOIN rol B ON A.id_rol = B.id_rol ORDER BY A.id_acceso";
+            $query = $this->cnx->prepare($sql);
+        }
 
-    function getNoticias($id_acceso){
+        if($query->execute()){
+            $num_registro = $query->rowCount();
+            $total_pag = ceil($num_registro/$cantidad_pagina); //Total paginas
+            return array($inicio,$cantidad_pagina,$total_pag,$num_registro);
+        }
+    }
+    function getNoticias($id_acceso,$recibido){
+        $paginador = $this->paginador("noticia",$recibido,$id_acceso);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
         if($id_acceso == "todos"){
-            $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso";
+            $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso LIMIT $inicio,$cantidad_pagina";
             $query = $this->cnx->prepare($sql);
             if($query -> execute()){
                 return $query;
             }
         }
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso WHERE C.id_acceso = ?";
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso WHERE C.id_acceso = ? LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id_acceso);
         if($query -> execute()){
             return $query;
         }
     }
-    function getCategorias(){
-        $sql = "SELECT * FROM categoria";
+    function getCategorias($recibido){
+        $paginador = $this->paginador("categoria",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT * FROM categoria LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query -> execute()){
             return $query;
@@ -48,8 +96,11 @@ class select{
             return $query;
         }
     }
-    function getLibros(){
-        $sql = "SELECT A.ISBN,A.titulo,A.fecha_publi,B.nombre FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial";
+    function getLibros($recibido){
+        $paginador = $this->paginador("libro",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT A.ISBN,A.titulo,A.fecha_publi,B.nombre FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query -> execute()){
             return $query;
@@ -62,29 +113,41 @@ class select{
             return $query;
         }
     }
-    function getAutores(){
-        $sql = "SELECT * FROM autor";
+    function getAutores($recibido){
+        $paginador = $this->paginador("autor",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT * FROM autor LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query -> execute()){
             return $query;
         }
     }
-    function getEditorial(){
-        $sql = "SELECT * FROM editorial";
+    function getEditorial($recibido){
+        $paginador = $this->paginador("editorial",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT * FROM editorial LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query -> execute()){
             return $query;
         }
     }
-    function getGenero(){
-        $sql = "SELECT * FROM genero";
+    function getGenero($recibido){
+        $paginador = $this->paginador("genero",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT * FROM genero LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query->execute()){
             return $query;
         }
     }
-    function getAcceso(){
-        $sql = "SELECT A.id_acceso,A.nombre,B.rol FROM acceso A INNER JOIN rol B ON A.id_rol = B.id_rol ORDER BY A.id_acceso";
+    function getAcceso($recibido){
+        $paginador = $this->paginador("acceso",$recibido,null);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT A.id_acceso,A.nombre,B.rol FROM acceso A INNER JOIN rol B ON A.id_rol = B.id_rol ORDER BY A.id_acceso LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query->execute()){
             return $query;

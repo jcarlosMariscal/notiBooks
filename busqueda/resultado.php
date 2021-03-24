@@ -19,17 +19,21 @@
                 $editorial = ( empty ($_GET['editorial'] ) ? NULL : $_GET['editorial']);
                 $autor = ( empty ($_GET['autor'] ) ? NULL : $_GET['autor']);
                 $genero = ( empty ($_GET['genero'] ) ? NULL : $_GET['genero']);
-                $temas = ( empty ($_POST['temas'] ) ? NULL : $_POST['temas']);
-                $frase = ( empty ($_POST['frase'] ) ? NULL : $_POST['frase']);
+                $temas = ( empty ($_GET['temas'] ) ? NULL : $_GET['temas']);
+                $frase = ( empty ($_GET['frase'] ) ? NULL : $_GET['frase']);
                 $recibido = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
                 if(!$recibido){
                     $recibido = 1;
                 }
+                // echo "TEMA ES: ".$temas."<br>";
+                // echo "LA FRASE ES: ".$frase;
                 
                 if($temas == "nombre"){
                     $libro = $query->getNameBook($frase,$recibido);
                     $nom = $frase;
                     $referencia = "libroName";
+                    $tabla = "libro";
+                    $aut = $_GET['frase'];
                     // $tabla = ""
                     if($libro->rowCount()){
                         ?><h2>Libros relacionados con el <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
@@ -49,6 +53,8 @@
                         ?><h2>Libros del Autor: <a class="a" href="index.php?autor=<?php echo $autor; ?>"><?php echo $nom ?></a></h2><?php
                         $libro = $query->libro($nom,$idTabla,$tablaRelacion,$tablaDestino,$recibido);
                     }elseif($temas=="autor"){
+                        $aut = $_GET['frase'];
+                        $nom = $aut;
                         $libro = $query->libro($frase,$idTabla,$tablaRelacion,$tablaDestino,$recibido);
                         if($libro->rowCount()>0){
                             ?><h2>Libros encontrados del <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
@@ -66,6 +72,8 @@
                         $libro = $query->getBookEditorial($nom,$recibido);
                         ?><h2>Libros con la editorial: <?php echo $nom ?></h2><?php
                     }elseif($temas=="editorial"){
+                        $aut = $_GET['frase'];
+                        $nom = $aut;
                         $libro = $query->getBookEditorial($frase,$recibido);
                         if($libro->rowCount() > 0){
                             ?><h2>Libros encontrados con la <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
@@ -85,6 +93,8 @@
                         $libro =$query->libro($nom,$idTabla,$tablaRelacion,$referencia,$recibido);
                         ?><h2>Libros con el genero: <?php echo $nom ?></h2><?php
                     }elseif($temas=="genero"){
+                        $aut = $_GET['frase'];
+                        $nom = $aut;
                         $libro = $query->libro($frase,$idTabla,$tablaRelacion,$referencia,$recibido);
                         if($libro->rowCount() > 0){
                             ?><h2>Libros encontrados con el <?php echo $temas; ?>: <?php echo $frase ?></h2><?php
@@ -134,21 +144,52 @@
                     // echo "Total registro: ".$total_registro."<br>";
                     $rango = 10;
                     if($total_registro>=3){
-                        ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
-
-                        if($total_pag<=$rango){
-                            for($i=1; $i<=$total_pag; $i++):?>
-                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                            <?php endfor;
+                        if($temas){
+                            $tema = $_GET['temas'];
+                            ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="busqueda.php?temas=<?php echo $tema; ?>&frase=<?php echo $aut; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
                         }else{
-
-                            for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):?>
-                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                            <?php endfor;
+                            ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
                         }
 
-                        ?><li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido+1; ?>">»</a></li>
-                        <?php
+                        if($total_pag<=$rango){
+                            for($i=1; $i<=$total_pag; $i++):
+                            if($temas){
+                                $tema = $_GET['temas'];
+                                ?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?temas=<?php echo $tema; ?>&frase=<?php echo $aut; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                            }else{
+                                ?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                            }
+                             endfor;
+                        }else{
+
+                            for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):
+                            if($temas){
+                                $tema = $_GET['temas'];
+                                ?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?temas=<?php echo $tema; ?>&frase=<?php echo $aut; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                            }else{
+                                ?>
+                                <li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                            }
+                            endfor;
+                        }
+
+                        if($temas){
+                            $tema = $_GET['temas'];
+                            ?>
+                            <li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="busqueda.php?temas=<?php echo $tema; ?>&frase=<?php echo $aut; ?>&pagina=<?php echo $recibido+1; ?>">»</a></li>
+                            <?php
+                        }else{
+                            ?>
+                            <li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="busqueda.php?<?php echo $tabla; ?>=<?php echo $aut ?>&pagina=<?php echo $recibido+1; ?>">»</a></li>
+                            <?php
+                        }
                     }
                 ?>
             </ul>

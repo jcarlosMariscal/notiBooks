@@ -7,7 +7,7 @@ class selectResultado{
     }
 
     function paginador($tabla,$recibido,$buscar){
-        $cantidad_pagina  = 2;
+        $cantidad_pagina  = 1;
         if($recibido == 1){
             $pagina = 1;
         }else{
@@ -26,9 +26,14 @@ class selectResultado{
         }elseif($tabla == "libroName"){
             $sql = "SELECT ISBN FROM libro WHERE titulo LIKE '%$buscar%'";
             $query = $this->cnx->prepare($sql);
+        }elseif($tabla == "periodista"){
+            $sql = "SELECT A.titulo FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso WHERE B.id_acceso = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$buscar);
         }
         if($query->execute()){
             $num_registro = $query->rowCount();
+            // echo "Esto desde select: ".$num_registro;
             $total_pag = ceil($num_registro/$cantidad_pagina); //Total paginas
             return array($inicio,$cantidad_pagina,$total_pag,$num_registro);
         }
@@ -95,8 +100,11 @@ class selectResultado{
         }
     }
 
-    function getNoticia($periodista){
-        $sql = "SELECT A.titulo,A.fotografia,A.fecha,B.nombre,A.id_noticia FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso WHERE B.id_acceso = ?";
+    function getNoticia($periodista,$recibido){
+        $paginador = $this->paginador("periodista",$recibido,$periodista);
+        $inicio = $paginador[0];
+        $cantidad_pagina = $paginador[1];
+        $sql = "SELECT A.titulo,A.fotografia,A.fecha,B.nombre,A.id_noticia FROM noticia A INNER JOIN acceso B ON A.id_acceso = B.id_acceso WHERE B.id_acceso = ? LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$periodista);
         if($query->execute()){

@@ -16,7 +16,7 @@
                 <li><a class="menu" href="index.php?id=libros&pagina=1">LIBROS</a></li>
                 <li class="buscador">
                     <div class="buscar">
-                        <form action="busqueda.php" method="POST">
+                        <form action="busqueda.php" method="GET">
                             <p>Busque un libro por su:</p>
                             <select name="temas" id="temas"> <!--Hacer listas desplegables-->
                                 <option value="nombre" selected>Nombre</option>

@@ -28,10 +28,17 @@
                 <hr>
                 <?php
                 $rol = $_SESSION["nombre"]["id_rol"];
+                $pagina = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
                 if($rol == 2){
                     ?>
                     <div class="link-select">
-                        <a href="main.php?id=1"><p>Noticia</p></a>
+                        <?php
+                        if($pagina){
+                            ?><a href="main.php?id=1&pagina=<?php echo $pagina; ?>"><p>Noticia</p></a><?php
+                        }else{
+                            ?><a href="main.php?id=1"><p>Noticia</p></a><?php
+                        }
+                        ?>
                     </div>
                     <hr>
                     <div class="link-select">

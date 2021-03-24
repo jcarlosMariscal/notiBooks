@@ -16,7 +16,12 @@
                 <?php
                 require "select.php";
                 $query = new select();
-                $autor = $query->getLibros();
+                $recibido = ( empty ($_GET['pagina'] ) ? NULL : $_GET['pagina']);
+                if(!$recibido){
+                    $recibido = 1;
+                }
+                $id = ( empty ($_GET['id'] ) ? NULL : $_GET['id']);
+                $autor = $query->getLibros($recibido);
                 if($autor){
                     foreach($autor as $data){
                         ?>
@@ -38,12 +43,40 @@
                             <td class="modify"><a href="agregar/addLibroAutor.php?ISBN=<?php echo $data['ISBN']; ?>"><i class="fas fa-plus"></i></a></td>
                             <td class="delete"><a href="#" onclick="deleteAutBook(ISBN='<?php echo $data['ISBN']; ?>',autor='<?php echo $data['titulo']; ?>')"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
-                        <form id="libroAutor" hidden></form>
                         <?php
                     }    
                 }
                 ?>
             </table>
+            <form id="libroAutor" hidden></form>
+            <section class="paginacion clear">
+                <ul class="paginador">
+                    <?php
+                        $paginador = $query ->paginador("libro",$recibido,null);
+                        $total_pag = $paginador[2];
+                        $total_registro = $paginador[3];
+                        $rango = 10;
+                        if($total_registro>=2){
+                            ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
+                            
+
+                            if($total_pag<=$rango){
+                                for($i=1; $i<=$total_pag; $i++):
+                                ?><li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }else{
+
+                                for($i=max(1, min($recibido-4,$total_pag-($rango-1))); $i<=max($rango, min($recibido+5,$total_pag)); $i++):
+                                ?><li><a class="<?php echo $recibido==$i ? 'active' : '' ?>" href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+                                endfor;
+                            }
+
+                            ?><li class="<?php echo $recibido>=$total_pag ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido+1; ?>">»</a></li><?php
+
+                        }
+                    ?>
+                </ul>
+            </section>
         </div>
     </div>
 </div>

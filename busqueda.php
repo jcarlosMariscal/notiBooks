@@ -9,8 +9,8 @@
         $autor = ( empty ($_GET['autor'] ) ? NULL : $_GET['autor']);
         $genero = ( empty ($_GET['genero'] ) ? NULL : $_GET['genero']);
         $periodista = ( empty ($_GET['periodista'] ) ? NULL : $_GET['periodista']);
-        $temas = ( empty ($_POST['temas'] ) ? NULL : $_POST['temas']);
-        $frase = ( empty ($_POST['frase'] ) ? NULL : $_POST['frase']);
+        $temas = ( empty ($_GET['temas'] ) ? NULL : $_GET['temas']);
+        $frase = ( empty ($_GET['frase'] ) ? NULL : $_GET['frase']);
 
         if($editorial){
             ?>
