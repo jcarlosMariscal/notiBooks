@@ -245,6 +245,7 @@ aside{
     /* border-radius: 10px; */
     color: var(--letters-color);
     background: var(--header-footer);
+    margin-bottom: 10px;
 }
 .right{
     text-align: right;
@@ -284,7 +285,7 @@ aside{
     margin: 8px;
     padding: 7px;
     width: 30.4%;
-    height: 350px;
+    height: 380px;
     float: left;
     border-radius: 5px;
     border: 3px solid  var(--aside-border-shadow);
@@ -306,11 +307,10 @@ aside{
     margin: 8px;
     padding: 7px;
     width: 30.4%;
-    height: 260px;
+    height: 300px;
     float: left;
     border-radius: 5px;
     border: 3px solid  var(--aside-border-shadow);
-    /* box-shadow: 0px 0px 5px var(--header-footer); */
     border-top: 10px solid var(--header-footer);
 }
 

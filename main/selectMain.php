@@ -27,7 +27,7 @@ include "config/conexion.php";
         }
 
         function limitTable($id,$table,$canti){
-            $sql = "SELECT $id as id FROM $table";
+            $sql = "SELECT $id as id FROM $table ORDER BY $id ASC";
             $query = $this->cnx->prepare($sql);
             if($query->execute()){
                 $id = array();
@@ -154,10 +154,12 @@ include "config/conexion.php";
         function pageNameAutor(){
             $random1 = $this->numberRandom("id_autor","autor");
             $random2 = $this->numberRandom("id_autor","autor");
-            $sql = "SELECT id_autor,nombre FROM autor WHERE id_autor=? or id_autor=?";
+            $random3 = $this->numberRandom("id_autor","autor");
+            $sql = "SELECT id_autor,nombre FROM autor WHERE id_autor=? or id_autor=? or id_autor = ?";
             $query = $this->cnx->prepare($sql);
             $query ->bindParam(1,$random1);
             $query ->bindParam(2,$random2);
+            $query ->bindParam(3,$random3);
             if($query->execute()){
                 return $query;
             }

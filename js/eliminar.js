@@ -28,7 +28,12 @@ function eliminarAutor(id,nombre){
             method: 'POST',
             body: autor
         }).then( (res) => res.text()).then( (data) =>{
-            window.location.href='../admin/main.php?id=6';
+            if(data == "ocupado"){
+                alert("No es posible eliminar ya que el autor pertenece a varios libros");
+                window.location.href='../admin/main.php?id=6';
+            }else{
+                window.location.href='../admin/main.php?id=6';
+            }
         });
     }
 }
@@ -44,7 +49,12 @@ function eliminarEditorial(id,nombre){
             method: 'POST',
             body: editorial
         }).then( (res) => res.text()).then( (data) =>{
-            window.location.href='../admin/main.php?id=4';
+            if(data == "ocupado"){
+                alert("No es posible eliminar ya que el editorial pertenece a varios libros");
+                window.location.href='../admin/main.php?id=4';
+            }else{
+                window.location.href='../admin/main.php?id=4';
+            }
         });
     }
 }
@@ -60,7 +70,12 @@ function eliminarGenero(id,nombre){
             method: 'POST',
             body: genero
         }).then( (res) => res.text()).then( (data) =>{
-            window.location.href='../admin/main.php?id=4';
+            if(data == "ocupado"){
+                alert("No es posible eliminar ya que el genero pertenece a varios libros");
+                window.location.href='../admin/main.php?id=4';
+            }else{
+                window.location.href='../admin/main.php?id=4';
+            }
         });
     }
 }
@@ -81,7 +96,7 @@ function deleteAutBook(ISBN,titulo){
             method: 'POST',
             body: name
         }).then( (res) => res.text()).then( (data) =>{
-            console.log(data);
+            // console.log(data);
             alert("Eliminar el autor: " + autor);
             location.href="main.php?id=5";
         });
@@ -139,9 +154,14 @@ function deleteCategoria(id){
             method: 'POST',
             body: categoria
         }).then( (res) => res.text()).then( (data) =>{
-            console.log(data);
-            alert("Se ha eliminado la categoria: " + data);
-            window.location.href='../admin/main.php?id=2';
+            // console.log(data);
+            if(data == "ocupado"){
+                alert("No es posible eliminar la categoria ya que pertenece a una noticia");
+                window.location.href='../admin/main.php?id=2';
+            }else{
+                alert("Se ha eliminado la categoria");
+                window.location.href='../admin/main.php?id=2';
+            }
         });
     }
 }  

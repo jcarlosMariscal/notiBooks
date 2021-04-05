@@ -150,4 +150,7 @@
     width: 25%;
     height: 80px;
 }
+.clear{
+    clear: both;
+}
 /*LIBRO*/

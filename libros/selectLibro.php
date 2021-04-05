@@ -55,11 +55,17 @@ class selectLibro{
 
     function moreLibro($editorial,$ISBN){
         $random1 = $this->numberRandom("libro",$editorial);
-        $sql = "SELECT ISBN,titulo,portada,id_editorial FROM libro WHERE id_editorial = ? AND ISBN = ? AND ISBN != ?";
+        $random2 = $this->numberRandom("libro",$editorial);
+        $random3 = $this->numberRandom("libro",$editorial);
+        $random4 = $this->numberRandom("libro",$editorial);
+        $sql = "SELECT ISBN,titulo,portada,id_editorial FROM libro WHERE id_editorial = ? AND ISBN = ? OR ISBN = ? OR ISBN = ? OR ISBN = ? AND ISBN != ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$editorial);
         $query -> bindParam(2,$random1);
-        $query -> bindParam(3,$ISBN);
+        $query -> bindParam(3,$random2);
+        $query -> bindParam(4,$random3);
+        $query -> bindParam(5,$random4);
+        $query -> bindParam(6,$ISBN);
         if($query->execute()){
             return $query;
         }
@@ -69,18 +75,26 @@ class selectLibro{
         $categoria = "Libros";
         $random1 = $this->numberRandom("noticia",$categoria);
         $random2 = $this->numberRandom("noticia",$categoria);
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ? AND A.id_noticia = ? OR A.id_noticia = ?";
+        $random3 = $this->numberRandom("noticia",$categoria);
+        $random4 = $this->numberRandom("noticia",$categoria);
+        $random5 = $this->numberRandom("noticia",$categoria);
+        $random6 = $this->numberRandom("noticia",$categoria);
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE B.nombre = ? AND A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$categoria);
         $query -> bindParam(2,$random1);
         $query -> bindParam(3,$random2);
+        $query -> bindParam(4,$random3);
+        $query -> bindParam(5,$random4);
+        $query -> bindParam(6,$random5);
+        $query -> bindParam(7,$random6);
         if($query->execute()){
             return $query;
         }
     }
 
     function paginador($id,$tabla,$recibido){
-        $cantidad_pagina  = 9;
+        $cantidad_pagina  = 15;
         if($recibido == 1){
             $pagina = 1;
         }else{

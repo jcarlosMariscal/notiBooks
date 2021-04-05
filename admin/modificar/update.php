@@ -5,6 +5,44 @@ class update{
     function __construct(){
         $this->cnx = conexion::conectarDB();
     }
+    function validar($id,$tabla,$buscar){
+        if($id == "id_genero"){
+            $sql = "SELECT * FROM libro_genero WHERE ISBN = ? AND id_genero = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$tabla);
+            $query -> bindParam(2,$buscar);
+        }elseif($id == "id_autor"){
+            $sql = "SELECT * FROM autor_libro WHERE ISBN = ? AND id_autor = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$tabla);
+            $query -> bindParam(2,$buscar);
+        }else{
+            $sql = "SELECT $id FROM $tabla WHERE $id = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$buscar);
+        }
+        if($query->execute()){
+            if($query->rowCount() >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    function validarID($buscar,$tabla,$columna,$condicion){
+        $sql = "SELECT $columna as id FROM $tabla WHERE $condicion = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$buscar);
+        if($query->execute()){
+            foreach($query as $data){
+                $result = $data['id'];
+            }
+            return $result;
+        }else{
+            return false;
+        }
+    }
 
     function getNoticia($id){
         $sql = "SELECT * FROM noticia WHERE id_noticia = ?";
@@ -211,6 +249,16 @@ class update{
         $query -> bindParam(7,$ISBN);
         if($query->execute()){
             return true;
+        }
+    }
+
+    function getPeriodista(){
+        $rol = 1;
+        $sql = "SELECT id_acceso,nombre FROM acceso WHERE id_rol = ?";
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$rol);
+        if($query->execute()){
+            return $query;
         }
     }
 }

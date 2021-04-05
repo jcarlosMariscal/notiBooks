@@ -5,6 +5,30 @@ class agregar{
     function __construct(){
         $this->cnx = conexion::conectarDB();
     }
+    function validar($id,$tabla,$buscar){
+        if($id == "id_genero"){
+            $sql = "SELECT * FROM libro_genero WHERE ISBN = ? AND id_genero = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$tabla);
+            $query -> bindParam(2,$buscar);
+        }elseif($id == "id_autor"){
+            $sql = "SELECT * FROM autor_libro WHERE ISBN = ? AND id_autor = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$tabla);
+            $query -> bindParam(2,$buscar);
+        }else{
+            $sql = "SELECT $id FROM $tabla WHERE $id = ?";
+            $query = $this->cnx->prepare($sql);
+            $query -> bindParam(1,$buscar);
+        }
+        if($query->execute()){
+            if($query->rowCount() >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
     function addNoticia($titulo,$entrada,$fotografia,$id_acceso,$categoria,$cuerpo){
         $sql = "INSERT INTO noticia(titulo,entrada,cuerpo,fotografia,id_acceso,id_categoria) VALUES (?,?,?,?,?,?)";
@@ -16,7 +40,7 @@ class agregar{
         $query -> bindParam(5,$id_acceso);
         $query -> bindParam(6,$categoria);
         if($query -> execute()){
-            echo "<script> alert('Noticia Agregada'); window.location= '../main.php?id=1' </script>";
+            // echo "<script> alert('Noticia Agregada'); window.location= '../main.php?id=1' </script>";
             return true;
         }
     }

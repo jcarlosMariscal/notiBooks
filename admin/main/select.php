@@ -6,7 +6,7 @@ class select{
         $this->cnx = conexion::conectarDB();
     }
     function paginador($tabla,$recibido,$id_acceso){
-        $cantidad_pagina  = 1;
+        $cantidad_pagina  = 18;
         if($recibido == 1){
             $pagina = 1;
         }else{
@@ -53,13 +53,13 @@ class select{
         $inicio = $paginador[0];
         $cantidad_pagina = $paginador[1];
         if($id_acceso == "todos"){
-            $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso LIMIT $inicio,$cantidad_pagina";
+            $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso ORDER BY A.id_noticia ASC LIMIT $inicio,$cantidad_pagina";
             $query = $this->cnx->prepare($sql);
             if($query -> execute()){
                 return $query;
             }
         }
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso WHERE C.id_acceso = ? LIMIT $inicio,$cantidad_pagina";
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha, B.nombre FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria INNER JOIN acceso C ON A.id_acceso = C.id_acceso WHERE C.id_acceso = ? ORDER BY A.id_noticia ASC LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$id_acceso);
         if($query -> execute()){
@@ -100,10 +100,10 @@ class select{
         $paginador = $this->paginador("libro",$recibido,null);
         $inicio = $paginador[0];
         $cantidad_pagina = $paginador[1];
-        $sql = "SELECT A.ISBN,A.titulo,A.fecha_publi,B.nombre FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial LIMIT $inicio,$cantidad_pagina";
+        $sql = "SELECT A.ISBN,A.titulo,A.fecha_publi,B.nombre FROM libro A INNER JOIN editorial B ON A.id_editorial = B.id_editorial ORDER BY A.titulo ASC LIMIT $inicio,$cantidad_pagina";
         $query = $this->cnx->prepare($sql);
         if($query -> execute()){
-            return $query;
+            return $query; 
         }
     }
     function getRol(){

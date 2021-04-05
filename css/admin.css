@@ -45,7 +45,7 @@ main{
 }
 .formulario{
     padding: 10px;
-    height: 350px;
+    height: auto;
 }
 .formulario form label{
     color: var(--letters-color);
@@ -79,7 +79,7 @@ input:focus{
     outline: none;
     border: 3px solid var(--header-footer);
 }
-.btn-e,.btn-r,.btn-x,.btn-y{
+.btn-e,.btn-r,.btn-addMore,.btn-end{
     background: var(--letters-color);
     color: var(--main-botton);
     border: 1px solid var(--header-footer);
@@ -91,8 +91,11 @@ input:focus{
 .btn-r{
     background: var(--body-color);
 }
-.btn-e,.btn-x,.btn-y{
+.btn-e{
     background: var(--body-color);
+}
+.btn-e:focus{
+    outline: none;
 }
 .btn-e:hover{
     background: var(--a-hover);
@@ -100,13 +103,22 @@ input:focus{
     border: 1px solid var(--a-hover);
     cursor: pointer;
 }
-.btn-x:hover{
-    background: green;
+.btn-addMore{
+    background: #bbd6e4;
+    /* color: var(--letters-color); */
+    border: 1px solid var(--header-footer);
+}
+.btn-addMore:hover{
+    background: #5e8091;
     color: var(--letters-color);
-    border: 1px solid green;
+    border: 1px solid transparent;
     cursor: pointer;
 }
-.btn-y:hover{
+.btn-end{
+    background: #dbd362;
+    border: 1px solid var(--header-footer);
+}
+.btn-end:hover{
     background: #dabb31;
     color: var(--letters-color);
     border: 1px solid #dabb31;
@@ -136,7 +148,7 @@ a{
     font-size: 20px;
     font-family: var(--letters);
 }
-select{
+/* select{
     width: 50%;
     height: 25px;
     margin-bottom: 16px;
@@ -144,8 +156,13 @@ select{
     border-radius: 5px;
     font-size: 16px;
 }
+
 select:focus{
     outline: none;
+} */
+
+.tm{
+    font-size: 20px;
 }
 
 /*MAIN*/
@@ -229,7 +246,7 @@ select:focus{
 .btn-noticia{
     border: 1px solid var(--header-footer);
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     padding: 5px;
     color: black;
 }
@@ -290,12 +307,20 @@ select:focus{
 table,tr,th,td{
     border: 1px solid var(--main-botton);
     font-weight: normal;
+    /* font-size: 20px; */
     font-family: var(--letters);
-    font-size: 18px;
     border-collapse: collapse;
     padding-right: 5px;
     padding-left: 5px;
 }
+.selectCategoria table,tr,th,td{
+    font-size: 20px;
+    padding: 4px;
+}
+/* .select .resultLibro table,tr,th,td {
+    font-size: 20px;
+    padding: 4px;
+} */
 table th {
     background-color: var(--header-footer); 
     color: var(--letters-color);
@@ -338,130 +363,10 @@ tr td a:hover{
     margin-bottom: 10px;
 }
 .resultLibro table tr td{
-    font-size: 17px;
+    font-size: 20px;
+    padding: 4px;
 }
 /*PARTE VERDADERA DEL LIBRO-MAIN*/
-
-/*FORMULARIO AGREGAR NOTICIA*/
-.formAgregar form h3 i{
-    background: #ff0033;
-    color: var(--letters-color);
-    padding: 0px 10px 0px 10px;
-    font-family: var(--letters);
-    box-shadow: 0px 0px 8px #ff0033;
-}
-.slect{
-    background: #2ab5be;
-    color: var(--letters-color);
-    padding: 0px 10px 0px 10px;
-    font-family: var(--letters);
-    margin-right: 10px;
-    box-shadow: 0px 0px 8px #2ab5be;
-}
-.formAgregar{
-    /* margin: 10px; */
-    background: var(--body-color);
-    padding: 5px;
-}
-.formAgregar form{
-    background: var(--letters-color);
-}
-.formAgregar form input{
-    width: 630px;
-    background: var(--letters-color);
-}
-.formAgregar form label{
-    font-size: 20px;
-    font-family: var(--letters);
-}
-.formAgregar form .above{
-    width: 30%;
-    margin-right: 10px;
-}
-/* Para agregar autor*/
-.formAgregar form .fech{
-    width: 13%;
-}
-.formAgregar form .above1{
-    width: 24%;
-    margin-right: 10px;
-}
-.formAgregar form .above2{
-    width: 67%;
-}
-/* Para agregar autor*/
-.formAgregar form .file{
-    width: 27%;
-}
-.formAgregar form .end{
-    /* background: aqua; */
-    width: 66.4%;
-}
-.formAgregar form select{
-    width: 19%;
-    background: var(--letters-color);
-}
-.formAgregar form .categoria{
-    width: 12%;
-    margin-right: 16px;
-}
-.formAgregar form .url{
-    width: 49.5%;
-}
-.formAgregar form textarea{
-    width: 100%;
-    resize: vertical;
-    height: 54vh;
-}
-.formAgregar h3{
-    text-align: center;
-    font-size: 20px;
-    font-family: var(--letters);
-    margin-bottom: 10px;
-}
-.file{
-    border: none;
-}
-.btn-right{
-    text-align: right;
-}
-.addNot{
-    margin-top: 16px;
-}
-#editor{
-    height: 41vh;
-}
-/*FORMULARIO AGREGAR NOTICIA*/
-/*FORMULARIO AGREGAR CATEGORIA*/
-.formAgregarCat{
-    /* margin: 10px; */
-    background: var(--body-color);
-    padding: 5px;
-}
-.formAgregarCat #formModCat, #formModEdi, #formAddCat, #formAddEdi, #formAddGen, #formModGen, #formAddGenLibro, #formAddAutorLibro{
-    width: 35%;
-    margin: 20px auto;
-}
-.formAgregarCat form{
-    background: var(--letters-color);
-}
-.formAgregarCat form input{
-    background: var(--letters-color);
-    width: 74%;
-    margin-right: 3px;
-}
-.formAgregarCat form label{
-    font-size: 20px;
-    font-family: var(--letters);
-}
-.formAgregarCat h3{
-    text-align: center;
-    font-size: 20px;
-    font-family: var(--letters);
-    margin-bottom: 10px;
-}
-/*FORMULARIO AGREGAR CATEGORIA*/
-
 
 /*Menu Periodista*/
 ul, ol {
@@ -469,11 +374,11 @@ ul, ol {
 }
 .nav-perio li a {
     color: var(--letters-color);
-    background: var(--header-footer);
+    background: #747926;
     text-decoration:none;
     margin-right: 5px;
-    border-radius: 5px;
-    font-size: 16px;
+    /* border-radius: 5px; */
+    font-size: 20px;
     padding: 5px;
 }
 .nav-perio{
@@ -482,7 +387,7 @@ ul, ol {
 .nav-perio li a:hover {
     background: var(--a-hover);
     color: var(--letters-color);
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 .nav-perio li ul {
     display:none;
@@ -567,3 +472,358 @@ ul.paginador li a.active {
     background: white;
 }
 /*PAGINADOR*/
+
+/*FORMULARIO*/
+
+/*FORMULARIO AGREGAR CATEGORIA*/
+.formAgregarCat{
+    padding: 5px;
+    font-size: 20px;
+    font-family: var(--letters);
+}
+.formAgregarCat h3{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.formAgregarCat .formOne{
+    width: 35%;
+    margin: 20px auto;
+}
+.formAgregarCat .formOne{
+    background: var(--letters-color);
+}
+
+.formOneLabel{
+	display: block;
+    width: 20%;
+	padding: 10px;
+	cursor: pointer;
+    float: left;
+}
+.formOneInput{
+    background: var(--letters-color);
+    width: 75%;
+    /* margin-right: 3px; */
+    float: left;
+}
+.formInput{
+    background: var(--letters-color);
+    border: 1px solid var(--body-color);
+}
+.formInput:focus{
+    border: 2px solid var(--a-hover);
+}
+.formInputError{
+	font-size: 14px;
+    color: #bb2929;
+	display: none;
+}
+.formInputStatic{
+    font-size: 14px;
+    color: #bb2929;
+	display: block;
+}
+.formInputError-active{
+	display: block;
+}
+.formOneMensaje{
+    height: 45px;
+	line-height: 45px;
+	background: #F66060;
+	padding: 0 15px;
+	border-radius: 3px;
+    font-size: 16px;
+	display: none;
+}
+.formOneMensaje-active{
+	display: block;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formOne-correcto .formOneLabel,.formOne-correcto .formLabel {
+	color: #1ed12d;
+	opacity: 1;
+}
+.formOne-correcto .formInput{
+	border: 3px solid #1ed12d;
+}
+.formOne-incorrecto .formOneLabel,.formOne-incorrecto .formLabel {
+	color: #bb2929;
+	opacity: 1;
+}
+.formOne-incorrecto .formInput{
+	border: 3px solid #bb2929;
+}
+
+.formOne-correcto #editor {
+    border: 1px solid #1ed12d;
+}
+.formOne-incorrecto #editor{
+    border: 1px solid #bb2929;
+}
+
+.formOne-incorrecto .file{
+    color: #bb2929;
+}
+.formOne-correcto .file{
+    color: #1ed12d;
+}
+
+.labelStatic{
+    color: #1ed12d;
+}
+.selectStatic{
+    border: 3px solid #1ed12d;
+}
+/*FORMULARIO AGREGAR CATEGORIA*/
+
+/*FORMULARIO AGREGAR NOTICIA*/
+.formAgregar .formulario{
+    background: var(--letters-color);
+    height: auto;
+}
+.formAgregar{
+    padding: 5px;
+    font-size: 20px;
+    font-family: var(--letters);
+}
+.formAgregar h3{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.formGrupo-main-one,.formGrupo-main-two{
+    width: 50%;
+    float: left;
+}
+
+.formGrupo-main-one .formLabel,.formGrupo-main-two .formLabel{
+    display: block;
+    width: 14%;
+	padding: 10px;
+    padding-right: 0px;
+	cursor: pointer;
+    float: left;
+}
+.formGrupo-main-one .formularioInput,.formGrupo-main-two .formularioInput{
+    background: var(--letters-color);
+    width: 80%;
+    margin-right: 3px;
+    float: left;
+}
+
+.formGrupo-body-one{
+    width: 40%;
+    /* background: #1ed12d; */
+    float: left;
+}
+.formGrupo-body-two{
+    width: 30%;
+    /* background: #18A0E3; */
+    float: left; 
+}
+.formGrupo-body-one .formLabel, .formGrupo-body-two .formLabel{
+    float: left;
+    /* background: #62b3dc; */
+    width: 18%;
+    padding: 10px;
+    cursor: pointer;
+}
+.formGrupo-body-one .formularioInput, .formGrupo-body-two .formLabel{
+    float: left;
+    /* background: blue; */
+}
+
+.file{
+    background: none;
+    border: none;
+}
+.selectDB{
+    background: var(--body-color);
+    border-radius: 3px;
+    font-size: 17px;
+    margin: 10px;
+    height: 28px;
+    background: none;
+}
+.selectDB:focus{
+    outline: none;
+}
+.file:hover{
+    border: none;
+}
+.file::after{
+    border: none;
+}
+
+#editor{
+    height: 50vh;
+    margin-bottom: 10px;
+}
+/*FORMULARIO AGREGAR NOTICIA*/
+
+/*FORMULARIO AGREGAR LIBRO*/
+.formGrupo-main-one-book{
+    width: 35%;
+    float: left;
+}
+.formGrupo-main-two-book{
+    width: 65%;
+    float: left;
+}
+.formGrupo-main-one-book .formLabel,.formGrupo-main-two-book .formLabel{
+    display: block;
+    width: 5%;
+	padding: 10px;
+    padding-right: 60px;
+	cursor: pointer;
+    float: left;
+    /* background: #18A0E3; */
+}
+.formGrupo-main-one-book .formularioInput{
+    background: var(--letters-color);
+    width: 80%;
+    margin-right: 3px;
+    float: left;
+}
+.formGrupo-main-two-book .formularioInput{
+    background: var(--letters-color);
+    width: 86%;
+    margin-right: 3px;
+    float: left;
+}
+.date{
+    width: 50%;
+    margin-left: 50px;
+    background: none;
+}
+/*FORMULARIO AGREGAR LIBRO*/
+
+/*FORMULARIO RELACION GENERO/AUTOR A LIBRO*/
+.formLabelMore{
+	display: block;
+    width: 35%;
+	padding: 10px;
+	cursor: pointer;
+    float: left;
+    /* background: blue; */
+}
+.formInputMore{
+    background: var(--letters-color);
+    width: 50%;
+    /* margin-right: 3px; */
+    float: left;
+}
+.formGrupoMore{
+    margin-bottom: 10px;
+    /* background: blue; */
+    height: 12vh;
+}
+/*FORMULARIO RELACION GENERO/AUTOR A LIBRO*/
+
+/*FORMULARIO LOGIN*/
+.form-log{
+    padding: 10px;
+    height: auto;
+}
+.form-log h4{
+    color: var(--body-color);
+    font-size: 18px;
+    font-family: var(--letters);
+    text-align: center;
+}
+.form-log .formLogin label{
+    color: var(--letters-color);
+    font-size: 18px;
+    font-family: var(--letters);
+}
+.formLogin{
+    border: 3px solid var(--body-color);
+    border-radius: 5px;
+    padding: 30px;
+    margin: 30px;
+}
+.formInputLogin label{
+    width: 100%;
+}
+.formInputLogin input{
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 18px;
+    font-family: var(--letters);
+    background: var(--body-color);
+}
+.formInputLogininput:focus{
+    outline: none;
+    border: 3px solid var(--header-footer);
+}
+.formInputLogin select{
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 18px;
+    background: var(--body-color);
+    margin-bottom: 10px;
+}
+.formInputLogin select:focus{
+    outline: none;
+}
+.formInputError-login{
+    font-size: 14px;
+    font-family: var(--letters);
+    color: white;
+	display: none;
+}
+.formInputError-login-static{
+    font-size: 14px;
+    font-family: var(--letters);
+    color: white;
+	display: block;
+}
+.formInputError-login-active{
+    display: block;
+}
+.formMensajeLogin{
+    height: 30px;
+	line-height: 30px;
+	background: #F66060;
+	padding: 0 15px;
+	border-radius: 3px;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+    font-family: var(--letters);
+	display: none;
+}
+.formMensajeLogin-active{
+    display: block;
+}
+/*FORMULARIO LOGIN*/
+
+/*BOTON*/
+.btn-right-guardar{
+    text-align: right;
+    margin-top: 10px;
+}
+.btn-guardar{
+    background: var(--letters-color);
+    border: 1px solid var(--header-footer);
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.btn-guardar:hover{
+    background: #62b3dc;
+    border: 1px solid #62b3dc;
+    color: var(--letters-color);
+    outline: none;
+}
+/*BOTON*/
+
+/*FORMULARIO*/
+

@@ -56,7 +56,9 @@
 .mainBusqueda .sectionBusqueda .pageBusqueda p{
     padding: 5px;
 }
-
+h2{
+    font-weight: normal;
+}
 /*Resultado periodista*/
 
 /* .mainEditorial .sectionEditorial .noticiaMain img{

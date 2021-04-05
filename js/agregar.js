@@ -1,165 +1,51 @@
-var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
-  
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
-  
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [ 'link', 'image', 'formula' ],          // add's image support
-  
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-  
-    ['clean']                                         // remove formatting button
-  ];
-
-var formAdd = document.getElementById("formAdd");
-var formAddCat = document.getElementById("formAddCat");
-var formAddAutor = document.getElementById("formAddAutor");
-var formAddEdi = document.getElementById("formAddEdi");
-var formAddGen = document.getElementById("formAddGen");
-var formAddLibro = document.getElementById("formAddLibro");
 var formAddGenLibro = document.getElementById("formAddGenLibro");
 var formAddAutorLibro = document.getElementById("formAddAutorLibro");
-
-var libroAutor = document.getElementById("libroAutor");
-
+var formAdd = document.getElementById("formAdd");
+var formMod = document.getElementById("formMod");
 if(formAdd){
-    var quill = new Quill('#editor', {
-        modules: {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        
-    });
-    const inputFile = document.querySelector("#fotografia");
-    formAdd.addEventListener('submit',(e) => {
-        if(inputFile.files.length > 0){
-            e.preventDefault();
-            document.getElementById("cuerpo").value = quill.container.firstChild.innerHTML;
-    
-            let noticia = new FormData(formAdd);
-            noticia.append("archivo", inputFile.files[0]);
-            
-            fetch('../agregar/datosRecibidos.php',{
-                method: 'POST',
-                body: noticia
-            }).then( (res) => res.text()).then( (data) => {
-                console.log(data);
-                alert("Noticia Agregada"); 
-                window.location='../main.php'; 
-            });
-        }else{
-            alert("Selecciona un archivo");
-        }
-    });
-}else if(formAddCat){
-    formAddCat.addEventListener('submit',(e) => {
-        e.preventDefault();
-        let categoria = new FormData(formAddCat);
+    var inputs = document.querySelectorAll('#formAdd input');
+}else if(formMod){
+    var inputs = document.querySelectorAll('#formMod input');
+}
 
-        fetch("../agregar/datosRecibidos.php",{
-            method: 'POST',
-            body: categoria
-        }).then( (res) => res.text()).then( (data) => {
-            // console.log(data);
-            alert("Categoria Agregada"); 
-            window.location='../main.php?id=2'; 
-        });
-    });
-}else if(formAddAutor){
-    var quill = new Quill('#editor', {
-        modules: {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        
-    });
-    const inputFile = document.querySelector("#fotografia");
-    formAddAutor.addEventListener('submit', (e) => {
-        if(inputFile.files.length > 0){
-            e.preventDefault();
-            document.getElementById("biografia").value = quill.container.firstChild.innerHTML;
-    
-            let autor = new FormData(formAddAutor);
-            autor.append("archivo", inputFile.files[0]);
-            
-            fetch('../agregar/datosRecibidos.php',{
-                method: 'POST',
-                body: autor
-            }).then( (res) => res.text()).then( (data) => {
-                alert("Autor Agregado"); 
-                window.location='../main.php?id=6'; 
-            });
-        }else{
-            alert("Selecciona un archivo");
-        }
-    });
-}else if(formAddEdi){
-    formAddEdi.addEventListener('submit', (e) =>{
-        e.preventDefault();
-        let editorial = new FormData(formAddEdi);
 
-        fetch("../agregar/datosRecibidos.php",{
-            method: 'POST',
-            body: editorial
-        }).then( (res) => res.text()).then((data) => {
-            // console.log(data);
-            alert("Editorial Agregada"); 
-            window.location='../main.php?id=4'; 
-        });
-    });
-}else if(formAddGen){
-    formAddGen.addEventListener('submit', (e) =>{
-        e.preventDefault();
-        let genero = new FormData(formAddGen);
+const expresiones = {
+	frase: /^[a-zA-ZÀ-ÿ\s\-]{5,}$/, // Letras, numeros, guion y guion_bajo
+	titulo: /^[a-zA-ZÀ-ÿ0-9\s\-\:\,\.\?\¿\¡\!\"\'\(\)]{5,}$/, // 
+	nombre: /^[a-zA-ZÀ-ÿ\s]{5,50}$/, // Letras y espacios, pueden llevar acentos.
+	password: /^.{6,16}$/, // 4 a 12 digitos.  
+}
+const campos = {
+    nombre: false,
+    password : false
+}
 
-        fetch("../agregar/datosRecibidos.php",{
-            method: 'POST',
-            body: genero
-        }).then( (res) => res.text()).then( (data) => {
-            // console.log(data);
-            alert("Genero Agregado"); 
-            window.location='../main.php?id=4'; 
-        });
-    });
-}else if(formAddLibro){
-    var quill = new Quill('#editor', {
-        modules: {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        
-    });
-    const inputFile = document.querySelector("#portada");
-    formAddLibro.addEventListener('submit', (e) => {
-        if(inputFile.files.length > 0){
-            e.preventDefault();
-            document.getElementById("prologo").value = quill.container.firstChild.innerHTML;
-    
-            let autor = new FormData(formAddLibro);
-            autor.append("archivo", inputFile.files[0]);
-            var ISBN = autor.get("ISBN");
-            console.log(ISBN);
-            fetch('../agregar/datosRecibidos.php',{
-                method: 'POST',
-                body: autor
-            }).then( (res) => res.text()).then( (data) => {
-                console.log(data);
-                alert("El libro ha sido agregado. Por favor agregue su genero y autor a continuación.");
-                window.location='addLibroGenero.php?ISBN='+ISBN; 
-            });
+const validarForm = (e) => {
+    switch (e.target.name){
+        case "nombre":
+            validarCampo(expresiones.nombre, e.target, 'nombre');
+        break;
+        case "password":
+            validarCampo(expresiones.password, e.target, 'password');
+        break;
+    }
+}
 
-        }else{
-            alert("Selecciona un archivo");
-        }
-    });
-}else if(formAddGenLibro){
+const validarCampo = (expresion, input, campo) => {
+    if(expresion.test(input.value)){
+        document.querySelector(`#grupo-${campo} .formInputError-login`).classList.remove("formInputError-login-active");
+        campos[campo] = true;
+    }else{
+        document.querySelector(`#grupo-${campo} .formInputError-login`).classList.add("formInputError-login-active");
+        campos[campo] = false;
+    }
+}
+inputs.forEach((input) => {
+    input.addEventListener('keyup', validarForm);
+    input.addEventListener('blur', validarForm);
+});
+
+if(formAddGenLibro){
     formAddGenLibro.addEventListener('submit', (e) =>{
         e.preventDefault();
 
@@ -169,8 +55,13 @@ if(formAdd){
             method: 'POST',
             body: genLibro
         }).then( (res) => res.text()).then( (data) => {
-            alert("Genero agregado");
-            window.location='addLibroGenero.php?ISBN='+ISBN; 
+            console.log(data);
+            if(data == "repetido"){
+                alert("El genero que ha seleccionado ya se encuentra definido en el libro. Intente con otro")
+            }else if(data == "insertar"){
+                alert("Genero Agregado"); 
+                window.location='addLibroGenero.php?ISBN='+ISBN; 
+            }
         });
     });
 }else if(formAddAutorLibro){
@@ -182,9 +73,64 @@ if(formAdd){
             method: 'POST',
             body: autorLibro
         }).then( (res) => res.text()).then( (data) => {
-            alert("Autor agregado")
-            window.location='addLibroAutor.php?ISBN='+ISBN; 
+            console.log(data);
+            if(data == "repetido"){
+                alert("El autor que ha seleccionado ya se encuentra definido en el libro. Intente con otro")
+            }else if(data == "insertar"){
+                alert("Autor agregado")
+                window.location='addLibroAutor.php?ISBN='+ISBN; 
+            }
         });
+    });
+}else if(formAdd){
+    formAdd.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let data = new FormData(formAdd);
+        if(campos.nombre && campos.password){
+            fetch('../admin/agregar/datosRecibidos.php',{
+                method: 'POST',
+                body: data
+            }).then( (res) => res.text()).then( (data) => {
+                console.log(data);
+                if(data == "repetido"){
+                    alert("Ya existe un usuario con el mismo nombre");
+                    window.location="main.php?id=7"
+                }else if(data == "insertar"){
+                    alert("Autor agregado");
+                    window.location="main.php?id=7"
+                }else if(data == "nuevo"){
+                    // alert("nuevo");
+                    window.location="../admin.php"
+                }
+            });
+        }else{
+            document.getElementById('formulario-mensaje').classList.add('formMensajeLogin-active');
+        }
+    });
+}else if(formMod){
+    formMod.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let data = new FormData(formMod);
+        if(campos.nombre){
+            fetch('../../admin/modificar/datosRecibidos.php',{
+                method: 'POST',
+                body: data
+            }).then( (res) => res.text()).then( (data) => {
+                console.log(data);
+                if(data == "repetido"){
+                    alert("Ya existe un usuario con el mismo nombre");
+                    window.location="../main.php?id=7"
+                }else if(data == "noCambio"){
+                    // alert("Autor agregado");
+                    window.location="../main.php?id=7" 
+                }else if(data == "insertar"){
+                    console.log("Usuario modificado");
+                    window.location="../main.php?id=7" 
+                }
+            });
+        }else{
+            document.getElementById('formulario-mensaje').classList.add('formMensajeLogin-active');
+        }
     });
 }
 

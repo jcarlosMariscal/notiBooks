@@ -48,7 +48,7 @@
                     $total_registro = $paginador[3];
                     $contador = $query->mainNoticia($recibido);
                     $rango = 10;
-                    if($total_registro>=2){
+                    if($total_registro>=9){
 
                         ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="index.php?id=noticias&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
 

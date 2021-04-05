@@ -51,7 +51,7 @@
             ?>
         </section>
         <aside >
-            <div><h3>Libros escritos</h3></div>
+            <div><h3>Libros recomendados</h3></div>
             <div class="books">
                 <?php
                 $libro = $query->pageMainLibros();

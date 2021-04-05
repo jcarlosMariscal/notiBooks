@@ -6,6 +6,27 @@ class eliminar{
         $this->cnx = conexion::conectarDB();
     }
 
+    function validar($tabla,$buscar){
+        if($tabla == "autor"){
+            $sql = "SELECT A.ISBN FROM libro A INNER JOIN autor_libro B ON A.ISBN = B.ISBN INNER JOIN autor C ON B.id_autor = C.id_autor WHERE C.id_autor = ?";
+        }else if($tabla == "editorial"){
+            $sql = "SELECT ISBN FROM libro WHERE id_editorial = ?";
+        }else if($tabla == "genero"){
+            $sql = "SELECT A.ISBN FROM libro A INNER JOIN libro_genero B ON A.ISBN = B.ISBN INNER JOIN genero C ON B.id_genero = C.id_genero WHERE C.id_genero = ?";
+        }else if($tabla == "categoria"){
+            $sql = "SELECT id_noticia FROM noticia WHERE id_categoria = ?";
+        }
+        $query = $this->cnx->prepare($sql);
+        $query -> bindParam(1,$buscar);
+        if($query->execute()){
+            if($query->rowCount() >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
     function eliminarNoticia($id){
         $sql = "DELETE FROM noticia WHERE id_noticia = ?";
         $query = $this->cnx->prepare($sql);

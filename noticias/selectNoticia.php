@@ -6,7 +6,7 @@ class selectNoticia{
         $this->cnx = conexion::conectarDB();
     }
     function paginador($id,$tabla,$recibido){
-        $cantidad_pagina  = 3;
+        $cantidad_pagina  = 9;
         if($recibido == 1){
             $pagina = 1;
         }else{
@@ -54,12 +54,22 @@ class selectNoticia{
 
     function moreNoticia($categoria,$id){
         $random1 = $this->numberRandom("noticia",$categoria);
+        $random2 = $this->numberRandom("noticia",$categoria);
+        $random3 = $this->numberRandom("noticia",$categoria);
+        $random4 = $this->numberRandom("noticia",$categoria);
+        $random5 = $this->numberRandom("noticia",$categoria);
+        $random6 = $this->numberRandom("noticia",$categoria);
 
-        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE A.id_noticia = ? AND A.id_noticia != ? AND B.nombre = ?";
+        $sql = "SELECT A.id_noticia,A.titulo,A.fecha,A.fotografia FROM noticia A INNER JOIN categoria B ON A.id_categoria = B.id_categoria WHERE A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? OR A.id_noticia = ? AND A.id_noticia != ? AND B.nombre = ?";
         $query = $this->cnx->prepare($sql);
         $query -> bindParam(1,$random1);
-        $query -> bindParam(2,$id);
-        $query -> bindParam(3,$categoria);
+        $query -> bindParam(2,$random2);
+        $query -> bindParam(3,$random3);
+        $query -> bindParam(4,$random4);
+        $query -> bindParam(5,$random5);
+        $query -> bindParam(6,$random6);
+        $query -> bindParam(7,$id);
+        $query -> bindParam(8,$categoria);
         if($query->execute()){
             return $query;
         }

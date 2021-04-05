@@ -7,7 +7,7 @@ class selectResultado{
     }
 
     function paginador($tabla,$recibido,$buscar){
-        $cantidad_pagina  = 1;
+        $cantidad_pagina  = 9;
         if($recibido == 1){
             $pagina = 1;
         }else{

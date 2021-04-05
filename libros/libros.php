@@ -48,7 +48,7 @@
                     $total_registro = $paginador[3];
                     $contador = $query->mainBook($recibido);
                     $rango = 10;
-                    if($total_registro>=5){
+                    if($total_registro>=15){
 
                         ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="index.php?id=libros&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/busqueda.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,12 +15,12 @@
             $query = new selectResultado();
             $periodista = ( empty ($_GET['periodista'] ) ? NULL : $_GET['periodista']);
             $recibido = $_GET['pagina'];
-            // echo "EL ID ES: ".$periodista;
+
             if($periodista){
                 $id_periodista = $periodista;
                 $name = $query->getPeriodista($periodista);
                 if($name){ foreach($name as $data){ $namePeriodista = $data['nombre']; } }
-                ?><h3>Noticias esritas por: <?php echo $namePeriodista; ?></h3><?php
+                ?><h2>Noticias de: <b><?php echo $namePeriodista; ?></b></h2><?php
                 $perio = $query->getNoticia($periodista,$recibido);
                 if($perio){
                     foreach($perio as $data){
@@ -51,7 +52,7 @@
                     $total_registro = $paginador[3];
                     // $contador = $query->getNoticia($periodista,$recibido);
                     $rango = 10;
-                    if($total_registro>=2){
+                    if($total_registro>=9){
 
                         ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="busqueda.php?periodista=<?php echo $id_periodista; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
 

@@ -3,6 +3,9 @@
     if (!isset($_SESSION["nombre"])){
         header("Location: ../admin.php");
     }
+    require "update.php";
+    $query = new update();
+    $id = $_GET['autor'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,52 +19,87 @@
 </head>
 <body>
     <div class="formAgregar">
-        <form id="formModAutor" enctype="multipart/form-data">
-        <?php
-        require "update.php";
-        $query = new update();
-        $id = $_GET['autor'];
-        $autor = $query->getAutor($id);
-        if($autor){
-            foreach($autor as $data){
-                $nombre = $data['nombre'];
-                $profesion = $data['profesion'];
-                $nacimiento = $data['nacimiento'];
-                $fallecimiento = $data['fallecimiento'];
-                $obras = $data['obras'];
-                $biografia = $data['biografia'];
-            }
-        }
-        ?>
-            <h3>Modificar autor: <?php echo $id; ?> <i>Si no desea cambiar la foto, por favor, omitalo.</i></h3>
+        <form id="formAdd" class="formulario" enctype="multipart/form-data">
+            <?php
+                $autor = $query->getAutor($id);
+                if($autor){
+                    foreach($autor as $data){ $nombre = $data['nombre']; $profesion = $data['profesion']; $nacimiento = $data['nacimiento']; $fallecimiento = $data['fallecimiento']; $obras = $data['obras']; $biografia = $data['biografia'];
+                    }
+                }
+            ?>
+            <h3>Modificar autor: <?php echo $id; ?></h3>
             <input type="text" name="tabla" value="autor" hidden>
             <input type="text" name="id_autor" value="<?php echo $id; ?>" hidden>
-            <label for="">Nombre: </label>
-            <input type="text" name="nombre" value="<?php echo $nombre; ?>" class="above1">
 
-            <label for="">Profesion: </label>
-            <input type="text" name="profesion" value="<?php echo $profesion; ?>" class="above1">
+            <div class="formGrupo-main-one" id="grupo-nombre">
+                <label for="nombre" class="formLabel">Nombre: </label>
+                <div class="formularioInput">
+                    <input class="formInput" type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>">
+                </div>
+				<p class=" clear formInputError">El nombre solo puede tener letras y espacios</p>
+            </div>
 
-            <label for="">A.Nac: </label>
-            <input type="date" name="nacimiento" value="<?php echo $nacimiento; ?>" class="fech">
+            <div class="formGrupo-main-two" id="grupo-profesion">
+                <label for="profesion" class="formLabel">Profesion: </label>
+                <div class="formularioInput">
+                    <input class="formInput" type="text" name="profesion" id="profesion" value="<?php echo $profesion; ?>">
+                </div>
+				<p class=" clear formInputError">La profesion solo pueden ser letras y espacios.</p>
+            </div>
 
-            <label for="">A.Fall: </label>
-            <input type="date" name="fallecimiento" value="<?php echo $fallecimiento; ?>" class="fech">
+            <div class="formGrupo-body-one clear" id="grupo-imagen">
+                <label for="imagen" class="formLabel">Fotografía: </label>
+                <div class="formularioInput">
+                    <input type="file" class="file" accept="image/png, .jpeg, .jpg, image/gif" name="imagen" id="imagen" >
+                </div>
+				<p class=" clear formInputError formInputStatic" id="inputFile"><b>Nota: </b>Si no quiere modificar la foto del autor puede omitirlo.</p>
+            </div>
 
-            <label for="">Obras: </label>
-            <input type="text" name="obras" value="<?php echo $obras; ?>" class="above2">
+            <div class="formGrupo-body-two" id="grupo-fecha_nac">
+                <label for="fecha_nac" class="formLabel">A.nacimiento: </label>
+                <div class="formularioInput">
+                    <input type="date" name="fecha_nac" id="fecha_nac" value="<?php echo $nacimiento; ?>" class="date">
+                </div>
+                <p class=" clear formInputError"> La fecha es incorrecta</p>
+            </div>
 
-            <input type="file" class="file" id="fotografia">
+            <div class="formGrupo-body-two" id="grupo-fecha_fal">
+                <label for="fecha_fal" class="formLabel">A.fallecimiento: </label>
+                <div class="formularioInput">
+                    <input type="date" name="fecha_fal" id="fecha_fal" value="<?php echo $fallecimiento; ?>" class="date">
+                </div>
+                <p class=" clear formInputError"> La fecha es incorrecta</p>
+            </div>
+            
+            <div class="formGrupo-main-two-book" id="grupo-obras">
+                <label for="obras" class="formLabel">Obras: </label>
+                <div class="formularioInput">
+                    <input class="formInput" type="text" name="obras" id="obras" value="<?php echo $obras; ?>">
+                </div>
+				<p class=" clear formInputError">Las obras solo pueden ser letras,espacios,guion bajo,guion,punto,comillas</p>
+            </div>
 
-            <label for="">Biografia:</label><br>
-            <input name="biografia" id="biografia" type="hidden">
-            <div id="editor" ><?php echo $biografia; ?></div>
-            <div class="btn-right">
-                <button type="submit" class="btn-e addNot">Guardar</button>
+            <div class="formGrupo-end-one clear" id="grupo-editor">
+                <label for="cuerpo" class="formLabel">Biografía: </label>
+                <div class="formularioInput">
+                    <input name="cuerpo" id="cuerpo" type="hidden" >
+                    <div id="editor" name="editor" class="editor"><?php echo $biografia; ?></div>
+                </div>
+				<p class=" clear formInputError">El prólogo del libro no puede quedar en blanco. Evite usar algunos caracteres especiales ( {, }, \ ), pongase en contacto con el desarrollador si tiene problemas.</p>
+            </div>
+
+            <div class="formOneGrupo clear formOneMensaje" id="formulario-mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i><b>Error: </b>Por favor rellena el formulario correctamente</p>
+            </div>
+
+            <div class=" formOneGrupo btn-right-guardar">
+                    <button type="submit" class="btn-guardar">Guardar</button>
             </div>
         </form>
     </div>
     <script src="../../quill/quill.js"></script>
     <script src="../../js/modificar.js"></script>
+    <!-- <script src="../../js/agregar.js"></script> -->
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>

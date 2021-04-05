@@ -3,6 +3,8 @@
     if (!isset($_SESSION["nombre"])){
         header("Location: ../admin.php");
     }
+    require "update.php";
+    $query = new update();
     $id = $_GET['editorial'];
 ?>
 <!DOCTYPE html>
@@ -16,28 +18,38 @@
 </head>
 <body>
     <div class="formAgregarCat">
-        <form id="formModEdi" enctype="multipart/form-data">
-        <?php
-        require "update.php";
-        $query = new update();
-        $editorial = $query->getEditorial($id);
-        if($editorial){
-            foreach($editorial as $data){
-                $nombre = $data['nombre'];
-            }
-        }
-        ?>
+        <form id="formAddOne" class="formOne" enctype="multipart/form-data">
+            <?php
+                $editorial = $query->getEditorial($id);
+                if($editorial){
+                    foreach($editorial as $data){
+                        $nombre = $data['nombre'];
+                    }
+                }
+            ?>
             <h3>Modificar editorial: <?php echo $id; ?></h3>
             <input type="text" name="tabla" value="editorial" hidden>
             <input type="text" name="id_editorial" value="<?php echo $id; ?>" hidden>
-            <label for="">Editorial: </label>
-            <input type="text" name="nombre" value="<?php echo $nombre; ?>">
 
-            <div class="btn-right">
-                <button type="submit" class="btn-e addNot">Guardar</button>
+            <div class="formOneGrupo" id="grupo-editorial">
+                <label for="editorial" class="formOneLabel">Editorial: </label>
+                <div class="formOneInput">
+                    <input class="formInput" type="text" name="editorial" id="editorial" value="<?php echo $nombre; ?>">
+                </div>
+				<p class=" clear formInputError">El editorial solo puede contener letras y minimo debe tener 5</p>
+            </div>
+
+            <div class="formOneGrupo clear formOneMensaje" id="formulario-mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i><b>Error: </b>Por favor rellena el formulario correctamente</p>
+            </div>
+
+            <div class=" formOneGrupo btn-right-guardar">
+                    <button type="submit" class="btn-guardar">Guardar</button>
             </div>
         </form>
     </div>
     <script src="../../js/modificar.js"></script>
+    <!-- <script src="../../js/agregar.js"></script> -->
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>

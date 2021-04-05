@@ -1,13 +1,13 @@
 <div class="main">
     <div class="sectionMain">
-        <label for="">Libros</label>
+        <label for="" class="tm">Libros</label>
         <a href="agregar/addLibro.php" class="btn-noticia">Agregar Libro</a>
         <a href="../admin/main.php?id=4" class="btn-noticia">Ver más</a>
         <a href="../admin/main.php?id=5" class="btn-noticia">Ver Libro-Autor</a>
         <a href="../admin/main.php?id=8" class="btn-noticia">Ver Libro-Genero</a>
     </div>
     <div class="select">
-        <div class="resultLibro">
+        <div class="result">
             <table>
                 <!-- <caption>NOTICIA</caption> -->
                 <tr>
@@ -65,7 +65,7 @@
                         $total_pag = $paginador[2];
                         $total_registro = $paginador[3];
                         $rango = 10;
-                        if($total_registro>=2){
+                        if($total_registro>=25){
                             ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
                             
 

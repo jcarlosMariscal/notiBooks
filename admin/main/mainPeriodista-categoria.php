@@ -62,7 +62,7 @@
                         $total_pag = $paginador[2];
                         $total_registro = $paginador[3];
                         $rango = 10;
-                        if($total_registro>=2){
+                        if($total_registro>=25){
                             ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="main.php?id=<?php echo $id; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
                             
 

@@ -7,13 +7,31 @@ if($tabla == "acceso"){
     $query -> eliminarAcceso($id);
 }elseif($tabla == "autor"){
     $id = $_POST['id'];
-    $query -> eliminarAutor($id);
+    $validar = $query->validar($tabla,$id);
+    if($validar){
+        echo "ocupado";
+    }else{
+        echo "vacio";
+        $query -> eliminarAutor($id);
+    }
 }elseif($tabla == "editorial"){
     $id = $_POST['id'];
-    $query -> eliminarEditorial($id);
+    $validar = $query->validar($tabla,$id);
+    if($validar){
+        echo "ocupado";
+    }else{
+        echo "vacio";
+        $query -> eliminarEditorial($id);
+    }
 }elseif($tabla == "genero"){
     $id = $_POST['id'];
-    $query -> eliminarGenero($id);
+    $validar = $query->validar($tabla,$id);
+    if($validar){
+        echo "ocupado";
+    }else{
+        echo "vacio";
+        $query -> eliminarGenero($id);
+    }
 }elseif($tabla == "autBook"){
     $ISBN = $_POST['ISBN'];
     $id_autor = $_POST['autor'];
@@ -34,11 +52,16 @@ if($tabla == "acceso"){
 }elseif($tabla == "categoria"){
     $id_categoria = $_POST['id'];
     $columna = "nombre";
-    $tabla = "categoria";
-    $nombre = $query -> getTableID($id_categoria,$columna,$tabla);
-    if($nombre){
-        $query -> eliminarCategoria($id_categoria);
-        echo $nombre;
+    $validar = $query->validar($tabla,$id_categoria);
+    if($validar){
+        echo "ocupado";
+    }else{
+        echo "vacio";
+        $nombre = $query -> getTableID($id_categoria,$columna,$tabla);
+        if($nombre || $nombre == ""){
+            $query -> eliminarCategoria($id_categoria);
+            echo $nombre;
+        }
     }
 }
 ?>

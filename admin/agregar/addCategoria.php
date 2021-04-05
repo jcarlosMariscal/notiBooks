@@ -15,17 +15,29 @@
 </head>
 <body>
     <div class="formAgregarCat">
-        <form id="formAddCat" enctype="multipart/form-data">
+        <form id="formAddOne" class="formOne" enctype="multipart/form-data">
             <h3>Agregar nueva categoria</h3>
             <input type="text" name="tabla" value="categoria" hidden>
-            <label for="">Categoria: </label>
-            <input type="text" name="categoria" placeholder="Introduce la categoria">
 
-            <div class="btn-right">
-                <button type="submit" class="btn-e addNot">Guardar</button>
+            <div class="formOneGrupo" id="grupo-categoria">
+                <label for="categoria" class="formOneLabel">Categoria: </label>
+                <div class="formOneInput">
+                    <input class="formInput" type="text" name="categoria" id="categoria" placeholder="Introduce la categoria">
+                </div>
+				<p class=" clear formInputError">La categoria solo puede contener letras y minimo debe tener 5</p>
+            </div>
+
+            <div class="formOneGrupo clear formOneMensaje" id="formulario-mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i><b>Error: </b>Por favor rellena el formulario correctamente</p>
+            </div>
+
+            <div class=" formOneGrupo btn-right-guardar">
+                    <button type="submit" class="btn-guardar">Guardar</button>
             </div>
         </form>
     </div>
-    <script src="../../js/agregar.js"></script>
+    <script src="../../js/validar.js"></script>
+    <!-- <script src="../../js/agregar.js"></script> -->
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>

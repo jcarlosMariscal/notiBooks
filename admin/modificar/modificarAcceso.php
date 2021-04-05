@@ -1,3 +1,8 @@
+<?php
+    require "update.php";
+    $query = new update();
+    $id = $_GET['acceso'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,46 +14,59 @@
 </head>
 <body>
     <main>
-        <div class="formulario">
-        <?php
-        $id = $_GET['acceso'];
-        ?>
+        <div class="form-log">
             <h4>Modificar Usuario: <?php echo $id; ?></h4>
             <hr>
-            <form id="formModAcceso">
+            <form id="formMod" class="formLogin">
                 <?php
-                require "update.php";
-                $query = new update();
-                $nombre = $query->getAcceso($id);
-                if($nombre){
-                    foreach($nombre as $data){
-                        $name = $data['nombre'];
-                    }
-                }
-                ?>
-                <input type="text" name="tabla" value="acceso" hidden>
-                <input type="text" name="id_acceso" value="<?php echo $id; ?>" hidden>
-                <label for="name">Introcuce nuevo nombre:</label>
-                <input type="text" name="name" id="name" value="<?php echo $name; ?>">
-                <label for="rol">Seleccione nuevo rol:</label>
-                <select name="rol" id="rol">
-                    <?php
-                    $rol = $query->getRol();
-                    if($rol){
-                        foreach($rol as $data){
-                            ?>
-                            <option value="<?php echo $data['id_rol']; ?>"><?php echo $data['rol']; ?></option>
-                            <?php
+                    $nombre = $query->getAcceso($id);
+                    if($nombre){
+                        foreach($nombre as $data){
+                            $name = $data['nombre'];
                         }
                     }
-                    ?>
-                </select>
-                <div class="form-btn">
-                    <button class="btn-e" type="submit">Guardar</button>
+                ?>
+                <input type="text" name="tabla" value="modificarAcceso" hidden>
+                <input type="text" name="id_acceso" value="<?php echo $id; ?>" hidden>
+
+                <div id="grupo-nombre">
+                    <!-- <label for="nombre">Introcuce nuevo nombre:</label> -->
+                    <div class="formInputLogin"> <br>
+                        <input type="text" name="nombre" id="nombre" value="<?php echo $name; ?>">
+                    </div>
+                    <p class="formInputError-login">El nombre solo puede contener letras y minimo debe tener 5</p>
                 </div>
+
+                <div id="grupo-rol">
+                    <!-- <label for="rol">Vuelva a seleccionar el/un rol: </label> -->
+                    <div class="formInputLogin"> <br>
+                        <select name="rol" id="rol">
+                            <?php
+                            $rol = $query->getRol();
+                            if($rol){
+                                foreach($rol as $data){
+                                    ?>
+                                    <option value="<?php echo $data['id_rol']; ?>"><?php echo $data['rol']; ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <p class="formInputError-login-static">Vuelva a seleccionar un/el rol</p>
+                </div>
+                
+                <div class="formOneGrupo formMensajeLogin" id="formulario-mensaje">
+                    <p><i class="fas fa-exclamation-triangle"></i><b>Error: </b>Por favor rellena el formulario correctamente</p>
+                </div>
+
+                <div class="formOneGrupo form-btn">
+                        <button type="submit" class="btn-e">Guardar</button>
+                </div>
+    
             </form>
         </div>
     </main>
-    <script src="../../js/modificar.js"></script>
+    <script src="../../js/agregar.js"></script>
 </body>
 </html>

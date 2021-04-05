@@ -3,7 +3,7 @@ session_start();
 try{
     include "../config/conexion.php";
     $cnx = conexion::conectarDB();
-    $name = $_POST['name'];
+    $name = $_POST['nombre'];
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM acceso WHERE nombre = ?";
@@ -15,6 +15,11 @@ try{
                 $_SESSION["nombre"] = $data;
                 header("Location: main.php");
             }else{
+                ?>
+                <script>
+                    alert("Verifique sus datos");
+                </script>
+                <?php
                 header("Location: ../admin.php");
             }
         }

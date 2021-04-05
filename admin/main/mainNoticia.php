@@ -16,13 +16,13 @@
 
         if($rol == 1){
             ?>
-            <label for="">Periodista | <?php echo $_SESSION["nombre"]["nombre"]; ?></label>
+            <label class="tm" for="">Periodista | <?php echo $_SESSION["nombre"]["nombre"]; ?></label>
             <?php
         }
         if($rol == 2){
             ?>
             <div class="mainAdmin">
-                <p>Administrador | Seleccione periodista: <b> 
+                <p class="tm">Administrador | Seleccione periodista: <b> 
                 <?php 
                 if(!$acceso || $acceso == "todos"){ echo "Todos"; } 
                 $perio = $query->getPeriodistaID($acceso);
@@ -111,7 +111,7 @@
                         $total_pag = $paginador[2];
                         $total_registro = $paginador[3];
                         $rango = 10;
-                        if($total_registro>=2){
+                        if($total_registro>=18){
                             if(!$id){
                                 ?><li class="<?php echo $recibido<=1 ? 'disabled' : '' ?>"><a href="main.php?acceso=<?php echo $acceso; ?>&pagina=<?php echo $recibido-1; ?>">«</a></li><?php
                             }else{

@@ -32,7 +32,7 @@
         </section>
 
         <section class="bookGener">
-            <div><h3>Libros similares</h3></div>
+            <div><h3>Más libros</h3></div>
             <div class="books">
                 <?php
                 $moreLibro = $query->moreLibro($id_editorial,$ISBN);
@@ -42,13 +42,13 @@
                         $titulo = $data['titulo'];
                         $portada = $data['portada'];
                         ?>
-                        <div class="book">
+                        <div class="book clear">
                             <img src="<?php echo $portada; ?>" alt="">
                             <p><?php echo $titulo; ?></p>
                             <p><?php $autor = $query-> getAutor($ISBN); if($genero){foreach($autor as $data){echo $data['nombre']; }} ?></p>
                             <p><?php $genero = $query->getGenero($ISBN); if($genero){foreach($genero as $data){echo $data['nombre']; }} ?></p>
                             <a class="a" href="index.php?libro=<?php echo $ISBN; ?>">Más información</a>
-                        </div>&nbsp
+                        </div><br>
                         <?php
                     }
                 }
